@@ -1,4 +1,3 @@
-
 # SomeUtils
 
 Just a simple & stupid Library for Java
@@ -42,8 +41,8 @@ SomeFile file = new SomeFile("path/", "file.name");
 
 Set Defaults for a File
 ```java
-SomeDefaults<String,String> defaults = new SomeDefaults<>();
-defaults.add("Description", SomeFile.DESCRIPTION);
+SomeDefaults defaults = new SomeDefaults<>();
+defaults.addDes("Description", SomeFile.DESCRIPTION);
 defaults.add("testString", "test");
 defaults.add("testInt", "1");
 defaults.add("testBool", "false");
@@ -59,6 +58,7 @@ Read / Write to the File
 ```java
 file.read(); -> List<String>
 file.write(value1, value2, ...);
+file.override(value1, value2, ...);
 ```
 
 Get a SomeConfig
@@ -130,7 +130,7 @@ logger.logWF(SomeLogger.LogLevel.INFO, "Test", new SomeLogFormatter() {
 
 ## Support
 
-For support: https://www.someworkflow.de/contact
+More Info: https://www.someworkflow.de/contact
 
 
 ## Badges
@@ -141,3 +141,4 @@ For support: https://www.someworkflow.de/contact
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
+
