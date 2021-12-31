@@ -5,53 +5,41 @@ package me.someoverflow.someutils.file;
  *
  * @author SomeOverflow
  */
-public class SomeDefaults<E, T> {
+public class SomeDefaults {
 
     private int size = 0;
 
-    private final Object[] keys;
-    private final Object[] values;
+    private final String[] keys;
+    private final String[] values;
 
     public SomeDefaults() {
-        int MAX_SIZE = 100;
-        keys = new Object[MAX_SIZE];
-        values = new Object[MAX_SIZE];
+        // I like the number 555 :)
+        int MAX_SIZE = 555;
+        keys = new String[MAX_SIZE];
+        values = new String[MAX_SIZE];
     }
 
-    public void add(E key, T value) {
+    public void add(String key, String value) {
         keys[size] = key;
         values[size] = value;
         size++;
     }
 
-    public void addDesc(E key) {
-        keys[size] = key;
-        values[size] = SomeFile.DESCRIPTION;
-        size++;
+    /**
+     * Add a Description
+     * Just runs {@link SomeDefaults#add(String, String)} with "SomeFile.DESCRIPTION"
+     *
+     * @param key The Description
+     */
+    public void addDes(String key) {
+        add(key, SomeFile.DESCRIPTION);
     }
 
-    @SuppressWarnings("unchecked")
-    public E getKey(int index) {
-        return (E) keys[index];
+    public String getKey(int index) {
+        return keys[index];
     }
-
-    @SuppressWarnings("unchecked")
-    public E getValue(int index) {
-        return (E) values[index];
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append('[');
-        for(int i = 0; i < size ;i++) {
-            sb.append(values[i].toString());
-            if(i<size-1){
-                sb.append(",");
-            }
-        }
-        sb.append(']');
-        return sb.toString();
+    public String getValue(int index) {
+        return values[index];
     }
 
     public int getSize() {

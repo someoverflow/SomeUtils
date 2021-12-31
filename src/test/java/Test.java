@@ -11,7 +11,7 @@ public class Test {
 
     public static void main(String[] args) {
         SomeFile file = new SomeFile("sometemp/", "file.swf-temp");
-        SomeDefaults<String, String> defaults = new SomeDefaults<>();
+        SomeDefaults defaults = new SomeDefaults();
         defaults.add("| =========+========= |", SomeFile.DESCRIPTION);
         defaults.add("|   TEST   - TESTTEMP |", SomeFile.DESCRIPTION);
         defaults.add("| =========+========= |", SomeFile.DESCRIPTION);

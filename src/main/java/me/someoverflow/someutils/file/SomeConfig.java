@@ -7,17 +7,14 @@ import java.util.regex.Pattern;
  * @author SomeOverflow
  */
 public class SomeConfig {
-
-    // TODO: 23.12.2021 Lists
-
-    // TODO: 31.12.2021 Docs what this class is doing
+    // TODO: 31.12.2021 Docs (what this class is doing)
 
     private final SomeFile file;
-
     public SomeConfig(SomeFile file) {
         this.file = file;
     }
 
+    // TODO: 31.12.2021 Other types & Lists
     public String getString(String path) {
         String result = null;
         for (String s : file.read()) {
@@ -45,6 +42,18 @@ public class SomeConfig {
     }
     public Integer getInt(String path, int def) {
         Integer result = getInt(path);
+        if (result == null)
+            return def;
+        else
+            return result;
+    }
+    public Double getDouble(String path) {
+        String result = getString(path);
+        if (result == null) return null;
+        return Double.parseDouble(result);
+    }
+    public Double getDouble(String path, double def) {
+        Double result = getDouble(path);
         if (result == null)
             return def;
         else

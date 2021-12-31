@@ -55,6 +55,10 @@ public class SomeLogger {
     public void setDebugging(boolean debugging) {
         this.debugging = debugging;
     }
+
+    /**
+     * @return When the logger is debugging
+     */
     public boolean isDebugging() {
         return debugging;
     }

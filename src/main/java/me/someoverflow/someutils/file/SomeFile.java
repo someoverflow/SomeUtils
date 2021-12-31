@@ -24,17 +24,6 @@ public class SomeFile {
         this.fileName = fileName;
     }
 
-    @Deprecated
-    public void setDefaults(String... defaults) {
-        this.defaults = new ArrayList<>();
-        this.defaults.addAll(Arrays.asList(defaults));
-    }
-    @Deprecated
-    public void setDefaults(List<String> defaults) {
-        this.defaults = new ArrayList<>();
-        this.defaults.addAll(defaults);
-    }
-
     public static final String DESCRIPTION = "#desc#";
 
     /**
@@ -43,7 +32,7 @@ public class SomeFile {
      *
      * @param defaults A "list" of the defaults
      */
-    public void setDefaults(SomeDefaults<String, String> defaults) {
+    public void setDefaults(SomeDefaults defaults) {
         this.defaults = new ArrayList<>();
         for (int i = 0; i < defaults.getSize(); i++) {
             String value = defaults.getValue(i);
@@ -75,12 +64,26 @@ public class SomeFile {
      */
     public void write(String... values) throws IOException {
         List<String> toAdd = new ArrayList<>();
-        if (read() != null)
-            toAdd.addAll(read());
+
+        List<String> read = read();
+        if (read != null) toAdd.addAll(read);
+
         toAdd.addAll(Arrays.asList(values));
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath + fileName));
         for (String value : toAdd) writer.write(value + "\n");
+        writer.close();
+    }
+
+    /**
+     * Override a file
+     *
+     * @param values The Values to add
+     * @throws IOException {@link BufferedWriter} and {@link FileWriter}
+     */
+    public void override(String... values) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filePath + fileName));
+        for (String value : values) writer.write(value + "\n");
         writer.close();
     }
 

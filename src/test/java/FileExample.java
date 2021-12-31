@@ -27,14 +27,17 @@ public class FileExample {
 
         // Get Values
         System.out.println(config.getString("SomeOverflow"));
-
-        System.out.println(config.getInt("testInt"));
         System.out.println(config.getBoolean("testBool"));
+
+        // When the testInt is null it will return 20
+        System.out.println(config.getInt("testInt", 20));
     }
 
-    public static SomeDefaults<String,String> defaults() {
-        SomeDefaults<String,String> defaults = new SomeDefaults<>();
-        defaults.add("Just a Config", SomeFile.DESCRIPTION);
+    public static SomeDefaults defaults() {
+        SomeDefaults defaults = new SomeDefaults();
+        // To add a Description
+        defaults.addDes("Just a Config");
+        // To add a values
         defaults.add("SomeOverflow", "cool");
         defaults.add("testInt", "500");
         defaults.add("testBool", "false");
