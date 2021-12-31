@@ -1,0 +1,67 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+group 'me.someoverflow'
+version '1.0.3'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "somerepo"
+            url = uri(project.repoUrl)
+            credentials {
+                username = project.repoUser
+                password = project.repoPassword
+            }
+        }
+    }
+    publications {
+        maven(MavenPublication) {
+            groupId = 'me.someoverflow'
+            artifactId = 'someutils'
+            version = project.version
+            from components.java
+
+            pom {
+                url = 'https://www.someworkflow.de'
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://spdx.org/licenses/MIT.html'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'SomeOverflow'
+                    }
+                }
+            }
+        }
+    }
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+javadoc {
+    if(JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+}
