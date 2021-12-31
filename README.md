@@ -7,7 +7,7 @@ but I am going to use this for my Projects ;)
 
 ## Installation
 
-Gradle
+###Gradle
 ```gradle
 maven {
     url "https://repo.someworkflow.de/snapshots"
@@ -16,7 +16,7 @@ maven {
 implementation "me.someoverflow:someutils:1.0.3"
 ```
 
-Maven
+###Maven
 ```gradle
 <repository>
   <id>somerepo-snapshots</id>
@@ -35,103 +35,152 @@ Maven
 
 Create/Get a File
 ```java
-# Path should end with / ,and the file extension should not matter
-SomeFile file = new SomeFile("path/", "file.name");
+class Example {
+    public static void main(String[] args) {
+        // Path should end with / ,and the file extension should not matter
+        SomeFile file = new SomeFile("path/", "file.name");
+    }
+}
 ```
 
 Set Defaults for a File
 ```java
-SomeDefaults defaults = new SomeDefaults<>();
-defaults.addDes("Description", SomeFile.DESCRIPTION);
-defaults.add("testString", "test");
-defaults.add("testInt", "1");
-defaults.add("testBool", "false");
-file.setDefaults(defaults);
+class Example {
+    public static void main(String[] args) {
+        SomeDefaults defaults = new SomeDefaults<>();
+        defaults.addDes("Description", SomeFile.DESCRIPTION);
+        defaults.add("testString", "test");
+        defaults.add("testInt", "1");
+        defaults.add("testBool", "false");
+        file.setDefaults(defaults);
+    }
+}
 ```
 
 Save the Defaults to the File
 ```java
-file.saveDefaults();
+class Example {
+    public static void main(String[] args) {
+        file.saveDefaults();
+    }
+}
 ```
 
 Read / Write to the File
 ```java
-file.read(); -> List<String>
-file.write(value1, value2, ...);
-file.override(value1, value2, ...);
+class Example {
+    public static void main(String[] args) {
+        file.read(); // => List<String>
+        file.write(value1, value2 /*, ... */);
+        file.override(value1, value2 /*, ... */);
+    }
+}
 ```
 
 Get a SomeConfig
 ```java
-SomeConfig config = new SomeConfig(file);
+class Example {
+    public static void main(String[] args) {
+        SomeConfig config = new SomeConfig(file);
+    }
+}
 ```
 
 Get values from a config
 ```java
-config.getString(path); -> String
-config.getInt(path); -> Integer
-config.getBoolean(path); -> Boolean
+class Example {
+    public static void main(String[] args) {
+        config.getString(path); // => String
+        config.getInt(path); // => Integer
+        config.getBoolean(path); // => Boolean
+    }
+}
 ```
 
-[Full Example Class](https://github.com/SomeOverflow/SomeUtils/blob/master/src/test/java/FileExample.java)
+###[Full Example Class](https://github.com/SomeOverflow/SomeUtils/blob/master/src/test/java/FileExample.java)
 ## Logger Usage/Examples
 
 Default Logger
 ```java
-SomeLogger logger = new SomeLogger("name");
+class Example {
+    public static void main(String[] args) {
+        SomeLogger logger = new SomeLogger("name");
+    }
+}
 ```
 
 Logger with custom Formatter
 ```java
-SomeLogger logger = new SomeLogger("name", new SomeLogFormatter() {
-    @Override
-        public String format(String logger, SomeLogger.LogLevel logLevel, String message) {
-            return message;
+class Example {
+    public static void main(String[] args) {
+        SomeLogger logger = new SomeLogger("name", new SomeLogFormatter() {
+            @Override
+            public String format(String logger, SomeLogger.LogLevel logLevel, String message) {
+                return message;
+            }
+        });
     }
-});
+}
 ```
 
 Logger with File
 ```java
-SomeLogger logger = new SomeLogger("name", true, "path/", "name.custom");
+class Example {
+    public static void main(String[] args) {
+        SomeLogger logger = new SomeLogger("name", true, "path/", "name.custom");
+    }
+}
 ```
 
 Disable/Enable Console Logging
 ```java
-logger.setToConsole(true / false);
+class Example {
+    public static void main(String[] args) {
+        logger.setToConsole(true / false);
+    }
+}
 ```
 
 Disable/Enable Debugging
 ```java
-logger.setDebugging(true / false);
+class Example {
+    public static void main(String[] args) {
+        logger.setDebugging(true / false);
+    }
+}
 ```
 
 Log a Message
 ```java
-logger.info(message);
-logger.error(message);
-logger.warn(message);
-logger.debug(message);
+class Example {
+    public static void main(String[] args) {
+        logger.info(message);
+        logger.error(message);
+        logger.warn(message);
+        logger.debug(message);
+    }
+}
 ```
 
 Log a Message with another Formatter
 ```java
-logger.logWF(SomeLogger.LogLevel.INFO, "Test", new SomeLogFormatter() {
-    @Override
-    public String format(String logger, SomeLogger.LogLevel logLevel, String message) {
-        return message;
+class Example {
+    public static void main(String[] args) {
+        logger.logWF(SomeLogger.LogLevel.INFO, "Test", new SomeLogFormatter() {
+            @Override
+            public String format(String logger, SomeLogger.LogLevel logLevel, String message) {
+                return message;
+            }
+        });
     }
-});
+}
 ```
 
-[Full Example Class](https://github.com/SomeOverflow/SomeUtils/blob/master/src/test/java/LogExample.java)
-
-
+###[Full Example Class](https://github.com/SomeOverflow/SomeUtils/blob/master/src/test/java/LogExample.java)
 
 ## Support
 
 More Info: https://www.someworkflow.de/contact
-
 
 ## Badges
 
