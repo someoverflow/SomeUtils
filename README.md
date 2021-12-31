@@ -10,24 +10,24 @@ but I am going to use this for my Projects ;)
 ###Gradle
 ```gradle
 maven {
-    url "https://repo.someworkflow.de/snapshots"
+    url "https://repo.someworkflow.de/releases"
 }
 
-implementation "me.someoverflow:someutils:1.0.3"
+implementation "me.someoverflow:someutils:1.0.4"
 ```
 
 ###Maven
 ```gradle
 <repository>
-  <id>somerepo-snapshots</id>
+  <id>somerepo-releases</id>
   <name>Some Repository</name>
-  <url>https://repo.someworkflow.de/snapshots</url>
+  <url>https://repo.someworkflow.de/releases</url>
 </repository>
 
 <dependency>
   <groupId>me.someoverflow</groupId>
   <artifactId>someutils</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
 </dependency>
 ```
     
