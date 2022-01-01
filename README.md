@@ -13,7 +13,7 @@ maven {
     url "https://repo.someworkflow.de/releases"
 }
 
-implementation "me.someoverflow:someutils:1.0.4"
+implementation "me.someoverflow:someutils:1.0.5"
 ```
 
 Maven
@@ -27,7 +27,7 @@ Maven
 <dependency>
   <groupId>me.someoverflow</groupId>
   <artifactId>someutils</artifactId>
-  <version>1.0.4</version>
+  <version>1.0.5</version>
 </dependency>
 ```
     
@@ -123,11 +123,39 @@ class Example {
 }
 ```
 
+Change the custom Formatter in the Console
+```java
+class Example {
+    public static void main(String[] args) {
+        logger.setConsoleFormatter(new SomeLogFormatter() {
+            @Override
+            public String format(String logger, SomeLogger.LogLevel logLevel, String message) {
+                return message;
+            }
+        });
+    }
+}
+```
+
 Logger with File
 ```java
 class Example {
     public static void main(String[] args) {
         SomeLogger logger = new SomeLogger("name", true, "path/", "name.custom");
+    }
+}
+```
+
+Change the custom Formatter in the File
+```java
+class Example {
+    public static void main(String[] args) {
+        logger.setFileFormatter(new SomeLogFormatter() {
+            @Override
+            public String format(String logger, SomeLogger.LogLevel logLevel, String message) {
+                return message;
+            }
+        });
     }
 }
 ```
