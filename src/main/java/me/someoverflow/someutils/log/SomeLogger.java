@@ -156,9 +156,7 @@ public class SomeLogger {
      * @param message The message to be output
      */
     public void log(LogLevel logLevel, String message) {
-        // TODO: 01.01.2022 Fix the RESET in config
-        message = message + ConsoleColors.RESET;
-        if (toConsole && !debugging) System.out.println(consoleFormatter.format(name, logLevel, message));
+        if (toConsole && !debugging) System.out.println(consoleFormatter.format(name, logLevel, message + ConsoleColors.RESET));
 
         if (!toFile) return;
         try {
@@ -175,16 +173,13 @@ public class SomeLogger {
      * @param formatter {@link SomeLogFormatter The Formatter}
      */
     public void logWF(LogLevel logLevel, String message, SomeLogFormatter formatter) {
-        message = message + ConsoleColors.RESET;
-        if (toConsole && !debugging) System.out.println(formatter.format(name, logLevel, message));
-        if (toFile) {
-            try {
-                assert fileManager != null;
-                fileManager.write(formatter.format(name, logLevel, message));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        if (toConsole && !debugging) System.out.println(formatter.format(name, logLevel, message + ConsoleColors.RESET));
+
+        if (toFile) return;
+        try {
+            assert fileManager != null;
+            fileManager.write(formatter.format(name, logLevel, message));
+        } catch (IOException ignored) { }
     }
 
     /**
