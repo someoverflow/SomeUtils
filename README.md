@@ -7,7 +7,7 @@ but I am going to use this for my Projects ;)
 
 ## Installation
 
-###Gradle
+Gradle
 ```gradle
 maven {
     url "https://repo.someworkflow.de/releases"
@@ -16,7 +16,7 @@ maven {
 implementation "me.someoverflow:someutils:1.0.4"
 ```
 
-###Maven
+Maven
 ```gradle
 <repository>
   <id>somerepo-releases</id>
@@ -97,7 +97,7 @@ class Example {
 }
 ```
 
-###[Full Example Class](https://github.com/SomeOverflow/SomeUtils/blob/master/src/test/java/FileExample.java)
+[Full Example Class](https://github.com/SomeOverflow/SomeUtils/blob/master/src/test/java/FileExample.java)
 ## Logger Usage/Examples
 
 Default Logger
@@ -176,7 +176,7 @@ class Example {
 }
 ```
 
-###[Full Example Class](https://github.com/SomeOverflow/SomeUtils/blob/master/src/test/java/LogExample.java)
+[Full Example Class](https://github.com/SomeOverflow/SomeUtils/blob/master/src/test/java/LogExample.java)
 
 ## Support
 
