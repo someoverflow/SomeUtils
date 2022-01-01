@@ -20,36 +20,6 @@ public class SomeLogger {
     private SomeLogFormatter consoleFormatter;
     private SomeLogFormatter fileFormatter;
 
-    /*
-     * public SomeLogger(String name) {
-     *         this.name             = name;
-     *         this.defaultFormatter = new SomeLogFormatter.Default();
-     *
-     *         this.toConsole        = true;
-     *
-     *         this.toFile           = false;
-     *         this.fileManager      = null;
-     *     }
-     *     public SomeLogger(String name, SomeLogFormatter formatter) {
-     *         this.name             = name;
-     *
-     *         this.toConsole        = true;
-     *
-     *         this.toFile           = false;
-     *         this.fileManager      = null;
-     *         setBFormatter(formatter);
-     *     }
-     *     public SomeLogger(String name, boolean toConsole, String filePath, String fileName) {
-     *         this.name             = name;
-     *         this.defaultFormatter = new SomeLogFormatter.Default();
-     *
-     *         this.toConsole        = toConsole;
-     *
-     *         this.toFile           = true;
-     *         this.fileManager      = new SomeFile(filePath, fileName);
-     *     }
-     */
-
     /**
      * Create a Logger with the given name
      * @param name The Name
@@ -177,11 +147,11 @@ public class SomeLogger {
      */
     public void logWF(LogLevel logLevel, String message, SomeLogFormatter formatter) {
         message = message + ConsoleColors.RESET;
-        if (toConsole && !debugging) System.out.println(consoleFormatter.format(name, logLevel, message));
+        if (toConsole && !debugging) System.out.println(formatter.format(name, logLevel, message));
         if (toFile) {
             try {
                 assert fileManager != null;
-                fileManager.write(fileFormatter.format(name, logLevel, message));
+                fileManager.write(formatter.format(name, logLevel, message));
             } catch (IOException e) {
                 e.printStackTrace();
             }
