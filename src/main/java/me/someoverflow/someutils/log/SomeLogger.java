@@ -17,34 +17,77 @@ public class SomeLogger {
 
     private boolean debugging;
 
-    private SomeLogFormatter defaultFormatter;
+    private SomeLogFormatter consoleFormatter;
+    private SomeLogFormatter fileFormatter;
 
+    /*
+     * public SomeLogger(String name) {
+     *         this.name             = name;
+     *         this.defaultFormatter = new SomeLogFormatter.Default();
+     *
+     *         this.toConsole        = true;
+     *
+     *         this.toFile           = false;
+     *         this.fileManager      = null;
+     *     }
+     *     public SomeLogger(String name, SomeLogFormatter formatter) {
+     *         this.name             = name;
+     *
+     *         this.toConsole        = true;
+     *
+     *         this.toFile           = false;
+     *         this.fileManager      = null;
+     *         setBFormatter(formatter);
+     *     }
+     *     public SomeLogger(String name, boolean toConsole, String filePath, String fileName) {
+     *         this.name             = name;
+     *         this.defaultFormatter = new SomeLogFormatter.Default();
+     *
+     *         this.toConsole        = toConsole;
+     *
+     *         this.toFile           = true;
+     *         this.fileManager      = new SomeFile(filePath, fileName);
+     *     }
+     */
+
+    /**
+     * Create a Logger with the given name
+     * @param name The Name
+     */
     public SomeLogger(String name) {
-        this.name             = name;
-        this.defaultFormatter = new SomeLogFormatter.Default();
-
-        this.toConsole        = true;
-
-        this.toFile           = false;
-        this.fileManager      = null;
+        this(name, false, true, new SomeLogFormatter.Default(), new SomeLogFormatter.Default(), false, null, null);
     }
-    public SomeLogger(String name, SomeLogFormatter formatter) {
-        this.name             = name;
-        this.defaultFormatter = formatter;
 
-        this.toConsole        = true;
-
-        this.toFile           = false;
-        this.fileManager      = null;
+    public SomeLogger(String name, boolean debugging) {
+        this(name, debugging, true, new SomeLogFormatter.Default(), new SomeLogFormatter.Default(), false, null, null);
     }
+
+    public SomeLogger(String name, SomeLogFormatter consoleF) {
+        this(name, false, true, consoleF, consoleF, false, null, null);
+    }
+
     public SomeLogger(String name, boolean toConsole, String filePath, String fileName) {
-        this.name             = name;
-        this.defaultFormatter = new SomeLogFormatter.Default();
+        this(name, false, toConsole, new SomeLogFormatter.Default(), new SomeLogFormatter.Default(), true, filePath, fileName);
+    }
 
-        this.toConsole        = toConsole;
+    public SomeLogger(
+            String name, boolean debugging, boolean toConsole,
+            SomeLogFormatter consoleFormatter, SomeLogFormatter fileFormatter,
+            boolean toFile, String filePath, String fileName
+    ) {
 
-        this.toFile           = true;
-        this.fileManager      = new SomeFile(filePath, fileName);
+        this.name               = name;
+        this.debugging          = debugging;
+        this.toConsole          = toConsole;
+        this.toFile             = toFile;
+
+        this.consoleFormatter   = consoleFormatter;
+        this.fileFormatter      = fileFormatter;
+
+        if (toFile)
+            this.fileManager    = new SomeFile(filePath, fileName);
+        else
+            this.fileManager    = null;
     }
 
     /**
@@ -74,13 +117,39 @@ public class SomeLogger {
 
     /**
      * Set the format in which everything will be output
+     * #Use now {@link SomeLogger#setBFormatter(SomeLogFormatter)}
+     * (Will be deleted in newer versions!)
      *
      * @param defaultFormatter Format
      */
+    @Deprecated
     public void setFormatter(SomeLogFormatter defaultFormatter) {
-        this.defaultFormatter = defaultFormatter;
+        setBFormatter(defaultFormatter);
     }
-    // TODO: 31.12.2021 set Formatter for Console & File different
+
+    /**
+     * Set a custom formatter for both (Console & File)
+     * @param formatter The formatter
+     */
+    public void setBFormatter(SomeLogFormatter formatter) {
+        setConsoleFormatter(formatter);
+        setFileFormatter(formatter);
+    }
+
+    /**
+     * Set a custom formatter only for the Console
+     * @param formatter The formatter
+     */
+    public void setConsoleFormatter(SomeLogFormatter formatter) {
+        this.consoleFormatter = formatter;
+    }
+    /**
+     * Set a custom formatter only for the Files
+     * @param formatter The formatter
+     */
+    public void setFileFormatter(SomeLogFormatter formatter) {
+        this.fileFormatter = formatter;
+    }
 
     /**
      * Log a message with the given {@link LogLevel}
@@ -90,15 +159,13 @@ public class SomeLogger {
      */
     public void log(LogLevel logLevel, String message) {
         message = message + ConsoleColors.RESET;
-        if (toConsole && !debugging) System.out.println(defaultFormatter.format(name, logLevel, message));
-        if (toFile) {
-            try {
-                assert fileManager != null;
-                fileManager.write(defaultFormatter.format(name, logLevel, message));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        if (toConsole && !debugging) System.out.println(consoleFormatter.format(name, logLevel, message));
+
+        if (!toFile) return;
+        try {
+            assert fileManager != null;
+            fileManager.write(fileFormatter.format(name, logLevel, message));
+        } catch (IOException ignored) { }
     }
 
     /**
@@ -110,11 +177,11 @@ public class SomeLogger {
      */
     public void logWF(LogLevel logLevel, String message, SomeLogFormatter formatter) {
         message = message + ConsoleColors.RESET;
-        if (toConsole && !debugging) System.out.println(formatter.format(name, logLevel, message));
+        if (toConsole && !debugging) System.out.println(consoleFormatter.format(name, logLevel, message));
         if (toFile) {
             try {
                 assert fileManager != null;
-                fileManager.write(defaultFormatter.format(name, logLevel, message));
+                fileManager.write(fileFormatter.format(name, logLevel, message));
             } catch (IOException e) {
                 e.printStackTrace();
             }

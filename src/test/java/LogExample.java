@@ -12,7 +12,7 @@ public class LogExample {
 
     public static void main(String[] args) {
         SomeLogger logger = new SomeLogger("LogExample", true, "example/", "config.example");
-        logger.setFormatter(new SomeLogFormatter() {
+        logger.setBFormatter(new SomeLogFormatter() {
             @Override
             public String format(String logger, SomeLogger.LogLevel logLevel, String message) {
                 SimpleDateFormat logTime = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
@@ -26,6 +26,13 @@ public class LogExample {
                         + logger
                         + " > "
                         + message;
+            }
+        });
+
+        logger.setFileFormatter(new SomeLogFormatter() {
+            @Override
+            public String format(String logger, SomeLogger.LogLevel logLevel, String message) {
+                return " | " + logger + " > " + message;
             }
         });
 
