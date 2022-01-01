@@ -28,18 +28,46 @@ public class SomeLogger {
         this(name, false, true, new SomeLogFormatter.Default(), new SomeLogFormatter.Default(), false, null, null);
     }
 
+    /**
+     * Create a Logger with the given name and enable/disable debugging
+     * @param name Logger name
+     * @param debugging Enable/Disable debugging
+     */
     public SomeLogger(String name, boolean debugging) {
         this(name, debugging, true, new SomeLogFormatter.Default(), new SomeLogFormatter.Default(), false, null, null);
     }
 
+    /**
+     * Create a Logger with the given name and with a custom console formatter
+     * @param name Logger name
+     * @param consoleF Custom Formatter for Console
+     */
     public SomeLogger(String name, SomeLogFormatter consoleF) {
         this(name, false, true, consoleF, consoleF, false, null, null);
     }
 
+    /**
+     * Create a Logger with the given name and with file writing
+     * @param name Logger name
+     * @param toConsole Should the Logger write to Console
+     * @param filePath The path of the File (should end with / )
+     * @param fileName The name of the File
+     */
     public SomeLogger(String name, boolean toConsole, String filePath, String fileName) {
         this(name, false, toConsole, new SomeLogFormatter.Default(), new SomeLogFormatter.Default(), true, filePath, fileName);
     }
 
+    /**
+     * Create a Logger with the given Values
+     * @param name Logger name
+     * @param debugging Enable/Disable debugging
+     * @param toConsole Should the Logger write to Console
+     * @param consoleFormatter Custom Formatter for Console
+     * @param fileFormatter Custom Formatter for File
+     * @param toFile Should the Logger write to a File
+     * @param filePath The path of the File (should end with / )
+     * @param fileName The name of the File
+     */
     public SomeLogger(
             String name, boolean debugging, boolean toConsole,
             SomeLogFormatter consoleFormatter, SomeLogFormatter fileFormatter,
@@ -128,6 +156,7 @@ public class SomeLogger {
      * @param message The message to be output
      */
     public void log(LogLevel logLevel, String message) {
+        // TODO: 01.01.2022 Fix the RESET in config
         message = message + ConsoleColors.RESET;
         if (toConsole && !debugging) System.out.println(consoleFormatter.format(name, logLevel, message));
 
