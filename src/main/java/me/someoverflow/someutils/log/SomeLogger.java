@@ -128,7 +128,7 @@ public class SomeLogger {
     }
 
     /**
-     * Set a custom formatter for both (Console & File)
+     * Set a custom formatter for both (Console and File)
      * @param formatter The formatter
      */
     public void setBFormatter(SomeLogFormatter formatter) {

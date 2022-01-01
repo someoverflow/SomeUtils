@@ -134,12 +134,12 @@ public class SomeConfig {
     }
 
     /**
-     * Get a CharSequence between 2 chars ( like 'test' -> test )
+     * Get a CharSequence between 2 chars ( like 'test' is test )
      *
      * @param message The message you want the String from
      * @param first The start like '
      * @param second The end like *
-     * @return a CharSequence like "'example*" -> "example"
+     * @return a CharSequence like "'example*" is "example"
      */
     public CharSequence stringBetween(String message, String first, String second) {
         Pattern p = Pattern.compile(first + ".*?" + second);
