@@ -13,7 +13,7 @@ maven {
     url "https://repo.someworkflow.de/releases"
 }
 
-implementation "me.someoverflow:someutils:1.0.5"
+implementation "me.someoverflow:someutils:1.0.6"
 ```
 
 Maven
@@ -27,7 +27,7 @@ Maven
 <dependency>
   <groupId>me.someoverflow</groupId>
   <artifactId>someutils</artifactId>
-  <version>1.0.5</version>
+  <version>1.0.6</version>
 </dependency>
 ```
     
