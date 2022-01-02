@@ -61,7 +61,11 @@ public class SomeConfig {
     public Integer getInt(String path) {
         String result = getString(path);
         if (result == null) return null;
-        return Integer.parseInt(result);
+
+        Integer res;
+        try { res = Integer.parseInt(result); }
+        catch (NumberFormatException ignored) { res = null; }
+        return res;
     }
     /**
      * The same as {@link SomeConfig#getInt(String)}
@@ -89,7 +93,12 @@ public class SomeConfig {
     public Double getDouble(String path) {
         String result = getString(path);
         if (result == null) return null;
-        return Double.parseDouble(result);
+
+        Double res;
+        try { res = Double.parseDouble(result); }
+        catch (NumberFormatException ignored) { res = null; }
+
+        return res;
     }
     /**
      * The same as {@link SomeConfig#getDouble(String)}
@@ -99,7 +108,7 @@ public class SomeConfig {
      * @param def The default value if its null
      * @return The value
      */
-    public Double getDouble(String path, double def) {
+    public double getDouble(String path, double def) {
         Double result = getDouble(path);
         if (result == null)
             return def;
@@ -125,7 +134,7 @@ public class SomeConfig {
      * @param def The default value if its null
      * @return The value
      */
-    public Boolean getBoolean(String path, boolean def) {
+    public boolean getBoolean(String path, boolean def) {
         Boolean result = getBoolean(path);
         if (result == null)
             return def;
