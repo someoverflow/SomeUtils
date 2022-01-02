@@ -3,6 +3,8 @@ import me.someoverflow.someutils.file.SomeDefaults;
 import me.someoverflow.someutils.file.SomeFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * @author SomeOverflow
@@ -31,6 +33,9 @@ public class FileExample {
 
         // When the testInt is null it will return 20
         System.out.println(config.getInt("testInt", 20));
+
+        for (String values : config.getList("ListExample"))
+            System.out.println(values);
     }
 
     public static SomeDefaults defaults() {
@@ -41,6 +46,10 @@ public class FileExample {
         defaults.add("SomeOverflow", "cool");
         defaults.add("testInt", "500");
         defaults.add("testBool", "false");
+
+        defaults.addList("ListExample",
+                new ArrayList<>(Arrays.asList("test1", "test2", "test3", "bread", "tree"))
+        );
         return defaults;
     }
 

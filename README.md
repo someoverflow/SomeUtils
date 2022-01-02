@@ -13,7 +13,7 @@ maven {
     url "https://repo.someworkflow.de/releases"
 }
 
-implementation "me.someoverflow:someutils:1.0.6"
+implementation "me.someoverflow:someutils:1.0.7"
 ```
 
 Maven
@@ -27,7 +27,7 @@ Maven
 <dependency>
   <groupId>me.someoverflow</groupId>
   <artifactId>someutils</artifactId>
-  <version>1.0.6</version>
+  <version>1.0.7</version>
 </dependency>
 ```
     
@@ -52,6 +52,9 @@ class Example {
         defaults.add("testString", "test");
         defaults.add("testInt", "1");
         defaults.add("testBool", "false");
+        defaults.addList("ListExample",
+                new ArrayList<>(Arrays.asList("test1", "test2", "test3", "bread", "tree"))
+        );
         file.setDefaults(defaults);
     }
 }
@@ -93,6 +96,7 @@ class Example {
         config.getString(path); // => String
         config.getInt(path); // => Integer
         config.getBoolean(path); // => Boolean
+        config.getList(path); // => List<String>
     }
 }
 ```

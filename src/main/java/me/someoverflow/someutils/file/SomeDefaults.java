@@ -1,5 +1,7 @@
 package me.someoverflow.someutils.file;
 
+import java.util.List;
+
 /**
  * Just a List because I am Stoopid
  *
@@ -23,6 +25,15 @@ public class SomeDefaults {
         keys[size] = key;
         values[size] = value;
         size++;
+    }
+
+    public void addList(String name, List<String> value) {
+        // Add the Name
+        addDes(name + " #{");
+        for (String s : value) {
+            addDes("\t- " + s);
+        }
+        addDes("}");
     }
 
     /**

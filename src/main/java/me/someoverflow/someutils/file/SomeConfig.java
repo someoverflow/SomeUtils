@@ -1,5 +1,7 @@
 package me.someoverflow.someutils.file;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,7 +15,37 @@ public class SomeConfig {
         this.file = file;
     }
 
-    // TODO: 31.12.2021 Other types & Lists
+    // TODO: 31.12.2021 Other types
+
+    /**
+     * Get a specific List from the Config like:
+     * list #{
+     *     - values
+     * }
+     * @param path The path in the config
+     * @return The value of the List
+     */
+    public List<String> getList(String path) {
+        List<String> result = new ArrayList<>();
+        boolean opened = false;
+        boolean closed = false;
+        for (String s : file.read()) {
+            if (s.startsWith(path + " #{") && !opened) opened = true;
+            if (opened) {
+                if (s.startsWith("}")) {
+                    opened = false;
+                    closed = true;
+                    continue;
+                }
+
+                if (s.startsWith("\t- "))
+                    result.add(s.replaceFirst("\t- ", ""));
+            }
+        }
+
+        if (!closed) return null;
+        return result;
+    }
 
     /**
      * Get a specific String from the ConfigFile but only when it is like this in the file:
@@ -32,7 +64,6 @@ public class SomeConfig {
                 break;
             }
         }
-
         return result;
     }
     /**
