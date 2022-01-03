@@ -48,7 +48,7 @@ Set Defaults for a File
 class Example {
     public static void main(String[] args) {
         SomeDefaults defaults = new SomeDefaults<>();
-        defaults.addDes("Description", SomeFile.DESCRIPTION);
+        defaults.addDes("Description");
         defaults.add("testString", "test");
         defaults.add("testInt", "1");
         defaults.add("testBool", "false");
