@@ -57,7 +57,7 @@ public class SomeFile {
     }
 
     /**
-     * Add Lines to a file
+     * Add Lines to a file, every value String will be separated with \n to create a new line
      *
      * @param values The lines to add to the file
      * @throws IOException {@link BufferedWriter} and {@link FileWriter}
@@ -76,7 +76,7 @@ public class SomeFile {
     }
 
     /**
-     * Override a file
+     * Override a file, every value String will be separated with \n to create a new line
      *
      * @param values The Values to add
      * @throws IOException {@link BufferedWriter} and {@link FileWriter}
