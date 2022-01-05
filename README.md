@@ -13,7 +13,7 @@ maven {
     url "https://repo.someworkflow.de/releases"
 }
 
-implementation "me.someoverflow:someutils:1.0.7"
+implementation "me.someoverflow:someutils:1.0.8"
 ```
 
 Maven
@@ -27,7 +27,7 @@ Maven
 <dependency>
   <groupId>me.someoverflow</groupId>
   <artifactId>someutils</artifactId>
-  <version>1.0.7</version>
+  <version>1.0.8</version>
 </dependency>
 ```
     
@@ -76,6 +76,15 @@ class Example {
         file.read(); // => List<String>
         file.write(value1, value2 /*, ... */);
         file.override(value1, value2 /*, ... */);
+    }
+}
+```
+
+Rename a File
+```java
+class Example {
+    public static void main(String[] args) {
+        file.rename("new.name");
     }
 }
 ```

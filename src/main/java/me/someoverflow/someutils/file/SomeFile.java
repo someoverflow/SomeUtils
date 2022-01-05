@@ -11,9 +11,10 @@ import java.util.List;
 public class SomeFile {
 
     private final String filePath;
-    private final String fileName;
+    private String fileName;
 
     public boolean fileCreated;
+    private boolean fileDeleted;
 
     private List<String> defaults;
 
@@ -88,6 +89,14 @@ public class SomeFile {
     }
 
     /**
+     * To clear the file
+     * @throws IOException Look {@link SomeFile#override(String...)}
+     */
+    public void clear() throws IOException {
+        override();
+    }
+
+    /**
      * Get the lines of the given file in a String List
      *
      * @return The lines (is null if the file is not existing)
@@ -99,11 +108,30 @@ public class SomeFile {
             ArrayList<String> result = new ArrayList<>();
             String line;
             while ((line = reader.readLine()) != null) result.add(line);
+            reader.close();
             return result;
         } catch (IOException e) {
             return null;
         }
     }
+
+    /**
+     * Creates a new file and writes in everything that was in the old one
+     *
+     * @param nName The new Name
+     * @throws IOException When there is any error while writing to the new File
+     */
+    public void rename(String nName) throws IOException {
+        String oldName = fileName;
+        fileName = nName;
+        List<String> oldValues = read();
+
+        fileDeleted = new File(filePath + oldName).delete();
+        clear();
+        for (String value : oldValues) write(value);
+    }
+
+    // TODO: 05.01.2022 Move & Delete
 
     public String getFileName() {
         return fileName;

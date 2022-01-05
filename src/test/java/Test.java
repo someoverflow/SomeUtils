@@ -31,9 +31,10 @@ public class Test {
         System.out.println(config.getDouble("Test1") + " ");
         System.out.println(config.getBoolean("Test1") + " ");
 
-        for (String list : config.getList("test")) {
+        for (String list : config.getList("test"))
             System.out.println(list + " ");
-        }
+
+        file.rename("rTest.test");
     }
 
 }

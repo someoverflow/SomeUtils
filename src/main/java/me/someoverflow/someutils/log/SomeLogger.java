@@ -82,9 +82,13 @@ public class SomeLogger {
         this.consoleFormatter   = consoleFormatter;
         this.fileFormatter      = fileFormatter;
 
-        if (toFile)
-            this.fileManager    = new SomeFile(filePath, fileName);
-        else
+        if (toFile) {
+            this.fileManager = new SomeFile(filePath, fileName);
+
+            if (!fileManager.fileCreated) {
+
+            }
+        } else
             this.fileManager    = null;
     }
 

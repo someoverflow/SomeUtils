@@ -36,6 +36,13 @@ public class FileExample {
 
         for (String values : config.getList("ListExample"))
             System.out.println(values);
+
+        // Rename the file to nConfig.example
+        try {
+            file.rename("nConfig.example");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static SomeDefaults defaults() {
