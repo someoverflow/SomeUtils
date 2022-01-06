@@ -10,11 +10,10 @@ import java.util.List;
  */
 public class SomeFile {
 
-    private final String filePath;
+    private String filePath;
     private String fileName;
 
     public boolean fileCreated;
-    private boolean fileDeleted;
 
     private List<String> defaults;
 
@@ -89,9 +88,10 @@ public class SomeFile {
     }
 
     /**
-     * To clear the file
+     * To clear the file (Could be make Errors)
      * @throws IOException Look {@link SomeFile#override(String...)}
      */
+    @Deprecated
     public void clear() throws IOException {
         override();
     }
@@ -122,16 +122,61 @@ public class SomeFile {
      * @throws IOException When there is any error while writing to the new File
      */
     public void rename(String nName) throws IOException {
-        String oldName = fileName;
-        fileName = nName;
-        List<String> oldValues = read();
+        // Read the data from the old file
+        List<String> oValues = read();
+        // Delete the old File
+        new File(filePath + fileName).delete();
+        // Delete the new File if it is existing
+        new File(filePath + nName).delete();
 
-        fileDeleted = new File(filePath + oldName).delete();
-        clear();
-        for (String value : oldValues) write(value);
+        // Set the new Name
+        fileName = nName;
+
+        assert oValues != null;
+        for (String value : oValues) write(value);
     }
 
-    // TODO: 05.01.2022 Move & Delete
+    /**
+     * Move a file to a new Directory
+     * @param nPath The new Path
+     * @throws IOException When there is any error while moving to the new path
+     */
+    public void move(String nPath) throws IOException {
+        // Create the new Directory
+        new File(nPath).mkdirs();
+
+        // Read the data from the old file
+        List<String > oValues = read();
+
+        // Delete the old File
+        new File(filePath + fileName).delete();
+
+        // Set the new FilePath
+        filePath = nPath;
+
+        // Put the old data in the file
+        for (String value : oValues) write(value);
+    }
+
+    /**
+     * Delete the current file
+     *
+     * @return If the file is deleted
+     */
+    public boolean delete() {
+        return delete(filePath, fileName);
+    }
+
+    /**
+     * Delete a File with the given data
+     *
+     * @param path The path of the File (Should end with / )
+     * @param name The name of the File
+     * @return If the file is deleted
+     */
+    public boolean delete(String path, String name) {
+        return new File(path + name).delete();
+    }
 
     public String getFileName() {
         return fileName;

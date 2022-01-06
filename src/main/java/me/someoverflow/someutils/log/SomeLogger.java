@@ -86,7 +86,7 @@ public class SomeLogger {
             this.fileManager = new SomeFile(filePath, fileName);
 
             if (!fileManager.fileCreated) {
-
+                // TODO: 05.01.2022 Move & rename to current time and date
             }
         } else
             this.fileManager    = null;

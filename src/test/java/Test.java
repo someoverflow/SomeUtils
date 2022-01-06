@@ -11,7 +11,7 @@ import java.util.Arrays;
  */
 public class Test {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         SomeFile file = new SomeFile("test/", "test.test");
 
         SomeDefaults defaults = new SomeDefaults();
@@ -22,19 +22,34 @@ public class Test {
         defaults.addList("test", new ArrayList<>(Arrays.asList("Test1", "Test2", "Test3")));
 
         file.setDefaults(defaults);
-        file.saveDefaults();
+        try {
+            file.saveDefaults();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         SomeConfig config = new SomeConfig(file);
 
         System.out.println(config.getString("Test1"));
-        System.out.println(config.getInt("Test1") + " ");
-        System.out.println(config.getDouble("Test1") + " ");
-        System.out.println(config.getBoolean("Test1") + " ");
 
         for (String list : config.getList("test"))
             System.out.println(list + " ");
 
-        file.rename("rTest.test");
+        try {
+            file.rename("rTest.test");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(config.getString("Test1"));
+
+        try {
+            file.move("test/temp/");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(config.getString("Test1"));
     }
 
 }

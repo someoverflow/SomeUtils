@@ -13,7 +13,7 @@ public class FileExample {
 
     public static void main(String[] args) {
         // path should have / at the end
-        SomeFile file = new SomeFile("path/", "config.example");
+        SomeFile file = new SomeFile("path/temp/", "config.example");
         // Set the Defaults
         file.setDefaults(defaults());
 
@@ -40,6 +40,13 @@ public class FileExample {
         // Rename the file to nConfig.example
         try {
             file.rename("nConfig.example");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Move it out of temp
+        try {
+            file.move("path/");
         } catch (IOException e) {
             e.printStackTrace();
         }
