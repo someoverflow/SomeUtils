@@ -132,8 +132,10 @@ public class SomeFile {
         // Set the new Name
         fileName = nName;
 
-        assert oValues != null;
-        for (String value : oValues) write(value);
+        if (oValues != null) {
+            if (oValues.size() != 0)
+                for (String value : oValues) write(value);
+        }
     }
 
     /**
@@ -155,7 +157,10 @@ public class SomeFile {
         filePath = nPath;
 
         // Put the old data in the file
-        for (String value : oValues) write(value);
+        if (oValues != null) {
+            if (oValues.size() != 0)
+                for (String value : oValues) write(value);
+        }
     }
 
     /**
