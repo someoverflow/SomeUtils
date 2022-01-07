@@ -3,6 +3,9 @@ package me.someoverflow.someutils.log;
 import me.someoverflow.someutils.file.SomeFile;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author SomeOverflow
@@ -73,7 +76,6 @@ public class SomeLogger {
             SomeLogFormatter consoleFormatter, SomeLogFormatter fileFormatter,
             boolean toFile, String filePath, String fileName
     ) {
-
         this.name               = name;
         this.debugging          = debugging;
         this.toConsole          = toConsole;
@@ -82,14 +84,25 @@ public class SomeLogger {
         this.consoleFormatter   = consoleFormatter;
         this.fileFormatter      = fileFormatter;
 
+        SomeFile tFileManager;
         if (toFile) {
-            this.fileManager = new SomeFile(filePath, fileName);
+            tFileManager = new SomeFile(filePath, fileName);
 
-            if (!fileManager.fileCreated) {
-                // TODO: 05.01.2022 Move & rename to current time and date
+            if (!tFileManager.fileCreated) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+                try {
+                    tFileManager.move(filePath + "logs/");
+                    String createName = "." + fileName.substring(fileName.lastIndexOf(".") + 1);
+                    tFileManager.rename(sdf.format(new Date()) + createName);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                tFileManager = new SomeFile(filePath, fileName);
             }
         } else
-            this.fileManager    = null;
+            tFileManager = null;
+        this.fileManager = tFileManager;
     }
 
     /**
@@ -153,6 +166,7 @@ public class SomeLogger {
         this.fileFormatter = formatter;
     }
 
+    // TODO: 06.01.2022 Fix the colors in the File
     /**
      * Log a message with the given {@link LogLevel}
      *
