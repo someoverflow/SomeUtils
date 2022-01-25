@@ -1,5 +1,6 @@
 package me.someoverflow.someutils.file;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -81,6 +82,22 @@ public class SomeConfig {
             return def;
         else
             return result;
+    }
+
+    /**
+     * (This is in work could make errors please report them)
+     * Change a String to a new value
+     *
+     * @param path The path in the config
+     * @param value The new value
+     * @throws IOException see {@link SomeFile#change(String, String)}
+     */
+    public void setString(String path, String value) throws IOException {
+        String current = getString(path);
+        String toChange = path + ": '" + current + "'";
+        String changeTo = path + ": '" + value + "'";
+
+        file.change(toChange, changeTo);
     }
 
     /**

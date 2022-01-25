@@ -6,6 +6,7 @@ I really don't know why you should use this,
 but I am going to use this for my Projects ;)
 
 ## Installation
+"1.1.2" is under work so maybe just use "1.1.1" it will work properly
 
 Gradle
 ```gradle

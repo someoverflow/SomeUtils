@@ -47,6 +47,7 @@ public class SomeFile {
 
     /**
      * If the file does not exist yet, it saves the {@link SomeFile#setDefaults(SomeDefaults) given defaults} in the new file
+     *
      * @throws IOException When the {@link SomeFile#write(String...) write function} is throwing something
      */
     public void saveDefaults() throws IOException {
