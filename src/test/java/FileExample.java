@@ -50,6 +50,10 @@ public class FileExample {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // Change a line
+        file.change("SomeOverflow: 'cool'", "SomeOverflow: 'sus'");
+        file.changeLine();
     }
 
     public static SomeDefaults defaults() {

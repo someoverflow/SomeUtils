@@ -3,7 +3,6 @@ package me.someoverflow.someutils.log;
 import me.someoverflow.someutils.file.SomeFile;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -174,8 +173,8 @@ public class SomeLogger {
      * @param message The message to be output
      */
     public void log(LogLevel logLevel, String message) {
-        if (toConsole && !debugging) System.out.println(consoleFormatter.format(name, logLevel, message + ConsoleColors.RESET));
-
+        if (toConsole && !debugging)
+            System.out.println(consoleFormatter.format(name, logLevel, message + ConsoleColors.RESET));
         if (!toFile) return;
         try {
             assert fileManager != null;

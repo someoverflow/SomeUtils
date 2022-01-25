@@ -16,6 +16,7 @@ public class SomeConfig {
     }
 
     // TODO: 31.12.2021 Other types
+    // TODO: 24.01.2022 Set something
 
     /**
      * Get a specific List from the Config like:

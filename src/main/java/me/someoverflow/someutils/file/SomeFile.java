@@ -76,6 +76,41 @@ public class SomeFile {
     }
 
     /**
+     * Changes every oldLine to the newLine parameter
+     *
+     * @param oldLine The old line to change
+     * @param newLine The new line to change to
+     * @throws IOException see {@link SomeFile#override(String...)}
+     */
+    public void change(String oldLine, String newLine) throws IOException {
+        StringBuilder fileData = new StringBuilder();
+        for (String s : read())
+            fileData.append(s).append("\n");
+        String res = fileData.toString().replace(oldLine, newLine);
+        override(res);
+    }
+
+    /**
+     * Changes the specific line to the newLine parameter
+     * The first line is 0 and so on
+     *
+     * @param line The line which will be changed
+     * @param newLine The new line it will be changed to
+     * @throws IOException see {@link SomeFile#override(String...)}
+     */
+    public void changeLine(int line, String newLine) throws IOException {
+        StringBuilder fileData = new StringBuilder();
+        int counter = 0;
+        for (String data : read()) {
+            if (counter == line) fileData.append(newLine);
+            else fileData.append(data);
+            fileData.append("\n");
+            counter++;
+        }
+        override(fileData.toString());
+    }
+
+    /**
      * Override a file, every value String will be separated with \n to create a new line
      *
      * @param values The Values to add

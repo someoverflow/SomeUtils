@@ -2,7 +2,7 @@
 
 Just a simple & stupid Library for Java
 
-I really dont know why you should use this,
+I really don't know why you should use this,
 but I am going to use this for my Projects ;)
 
 ## Installation
@@ -13,7 +13,7 @@ maven {
     url "https://repo.someworkflow.de/releases"
 }
 
-implementation "me.someoverflow:someutils:1.1.0"
+implementation "me.someoverflow:someutils:1.1.1"
 ```
 
 Maven
@@ -27,7 +27,7 @@ Maven
 <dependency>
   <groupId>me.someoverflow</groupId>
   <artifactId>someutils</artifactId>
-  <version>1.1.0</version>
+  <version>1.1.1</version>
 </dependency>
 ```
     
@@ -85,6 +85,10 @@ class Example {
         file.write(value1, value2 /*, ... */);
         // Override a file complete
         file.override(value1, value2 /*, ... */);
+        // Change a specific string in the file
+        file.change(oldLine, newLine);
+        // Change a specific line in the file
+        file.changeLine(line, newLine);
     }
 }
 ```
