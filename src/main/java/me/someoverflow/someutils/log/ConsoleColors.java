@@ -1,10 +1,9 @@
 package me.someoverflow.someutils.log;
 
 /**
+ * It's just to print colors to the Console
  * (Not from SomeOverflow)
  * @author https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
- *
- * It's just to print colors to the Console
  */
 public class ConsoleColors {
     // Reset

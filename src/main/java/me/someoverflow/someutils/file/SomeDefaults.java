@@ -37,8 +37,8 @@ public class SomeDefaults {
     }
 
     /**
-     * Add a Description
-     * Just runs {@link SomeDefaults#add(String, String)} with "SomeFile.DESCRIPTION"
+     * Adds a Description
+     * Just runs {@link SomeDefaults#add(String, String)} with {@link SomeFile#DESCRIPTION}
      *
      * @param key The Description
      */

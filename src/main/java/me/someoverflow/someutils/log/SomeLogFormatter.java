@@ -11,13 +11,12 @@ public abstract class SomeLogFormatter {
 
     /**
      * Formats a string with the given data
+     * (Returns something like "12-15-2021 15:16:20 - INFO || System : Test message")
      *
      * @param logger The name of the Logger who should write
      * @param logLevel The {@link me.someoverflow.someutils.log.SomeLogger.LogLevel LogLevel} of the Message
      * @param message The message
      * @return The formatted message
-     *
-     * (Like "12-15-2021 15:16:20 - INFO || System : Test message")
      */
     public abstract String format(String logger, SomeLogger.LogLevel logLevel, String message);
 

@@ -16,9 +16,6 @@ public class SomeConfig {
         this.file = file;
     }
 
-    // TODO: 31.12.2021 Other types
-    // TODO: 24.01.2022 Set something
-
     /**
      * Get a specific List from the Config like:
      * list #{
@@ -84,6 +81,7 @@ public class SomeConfig {
             return result;
     }
 
+    // TODO: 26.01.2022 Do it for every type
     /**
      * (This is in work could make errors please report them)
      * Change a String to a new value
