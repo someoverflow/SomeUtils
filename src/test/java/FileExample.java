@@ -52,8 +52,10 @@ public class FileExample {
         }
 
         // Change a line
+        /*
         file.change("SomeOverflow: 'cool'", "SomeOverflow: 'sus'");
         file.changeLine();
+         */
     }
 
     public static SomeDefaults defaults() {
@@ -62,11 +64,11 @@ public class FileExample {
         defaults.addDes("Just a Config");
         // To add a values
         defaults.add("SomeOverflow", "cool");
-        defaults.add("testInt", "500");
-        defaults.add("testBool", "false");
+        defaults.add("testInt", 500);
+        defaults.add("testBool", false);
 
         defaults.addList("ListExample",
-                new ArrayList<>(Arrays.asList("test1", "test2", "test3", "bread", "tree"))
+                new ArrayList<>(Arrays.asList("test1", "test2", "test3", true, 1))
         );
         return defaults;
     }

@@ -6,15 +6,13 @@ I really don't know why you should use this,
 but I am going to use this for my Projects ;)
 
 ## Installation
-"1.1.2" is under work so maybe just use "1.1.1" it will work properly
-
 Gradle
 ```gradle
 maven {
     url "https://repo.someworkflow.de/releases"
 }
 
-implementation "me.someoverflow:someutils:1.1.1"
+implementation "me.someoverflow:someutils:1.1.3"
 ```
 
 Maven
@@ -28,7 +26,7 @@ Maven
 <dependency>
   <groupId>me.someoverflow</groupId>
   <artifactId>someutils</artifactId>
-  <version>1.1.1</version>
+  <version>1.1.3</version>
 </dependency>
 ```
     
@@ -54,12 +52,12 @@ class Example {
         // Add a String
         defaults.add("testString", "test");
         // Add a Integer
-        defaults.add("testInt", "1");
+        defaults.add("testInt", 1);
         // Add a Boolean
-        defaults.add("testBool", "false");
+        defaults.add("testBool", false);
         // Add a List
         defaults.addList("ListExample",
-                new ArrayList<>(Arrays.asList("test1", "test2", "test3", "bread", "tree"))
+                new ArrayList<>(Arrays.asList("test1", "test2", "test3", true, 123))
         );
         // Set the defaults finally
         file.setDefaults(defaults);

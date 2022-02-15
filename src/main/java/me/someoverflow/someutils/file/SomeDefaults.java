@@ -21,24 +21,23 @@ public class SomeDefaults {
         values = new String[MAX_SIZE];
     }
 
-    public void add(String key, String value) {
+    public void add(String key, Object value) {
         keys[size] = key;
-        values[size] = value;
+        values[size] = value.toString();
         size++;
     }
 
-    public void addList(String name, List<String> value) {
+    public void addList(String name, List<Object> value) {
         // Add the Name
         addDes(name + " #{");
-        for (String s : value) {
-            addDes("\t- " + s);
-        }
+        for (Object s : value)
+            addDes("\t- " + s.toString());
         addDes("}");
     }
 
     /**
      * Adds a Description
-     * Just runs {@link SomeDefaults#add(String, String)} with {@link SomeFile#DESCRIPTION}
+     * Just runs {@link SomeDefaults#add(String, Object)} with {@link SomeFile#DESCRIPTION}
      *
      * @param key The Description
      */
