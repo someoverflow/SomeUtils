@@ -173,8 +173,14 @@ public class SomeLogger {
      * @param message The message to be output
      */
     public void log(LogLevel logLevel, String message) {
-        if (toConsole && !debugging)
-            System.out.println(consoleFormatter.format(name, logLevel, message + ConsoleColors.RESET));
+        if (toConsole) {
+            if (!debugging) {
+                if (logLevel != LogLevel.DEBUG)
+                    System.out.println(consoleFormatter.format(name, logLevel, message + ConsoleColors.RESET));
+            } else
+                System.out.println(consoleFormatter.format(name, logLevel, message + ConsoleColors.RESET));
+        }
+
         if (!toFile) return;
         try {
             assert fileManager != null;
@@ -190,7 +196,13 @@ public class SomeLogger {
      * @param formatter {@link SomeLogFormatter The Formatter}
      */
     public void logWF(LogLevel logLevel, String message, SomeLogFormatter formatter) {
-        if (toConsole && !debugging) System.out.println(formatter.format(name, logLevel, message + ConsoleColors.RESET));
+        if (toConsole) {
+            if (!debugging) {
+                if (logLevel != LogLevel.DEBUG)
+                    System.out.println(consoleFormatter.format(name, logLevel, message + ConsoleColors.RESET));
+            } else
+                System.out.println(consoleFormatter.format(name, logLevel, message + ConsoleColors.RESET));
+        }
 
         if (toFile) return;
         try {
