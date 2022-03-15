@@ -211,6 +211,7 @@ public class SomeLogger {
         } catch (IOException ignored) { }
     }
 
+    private String errorColor = ConsoleColors.RED;
     /**
      * Doing this:
      * {@link SomeLogger#log(LogLevel, String)}
@@ -218,8 +219,10 @@ public class SomeLogger {
      * @param message The message that is to be output
      */
     public void error(String message) {
-        log(LogLevel.ERROR, ConsoleColors.RED + message);
+        log(LogLevel.ERROR, errorColor + message);
     }
+
+    private String warnColor = ConsoleColors.RED_BRIGHT;
     /**
      * Doing this:
      * {@link SomeLogger#log(LogLevel, String)}
@@ -227,8 +230,10 @@ public class SomeLogger {
      * @param message The message that is to be output
      */
     public void warn(String message) {
-        log(LogLevel.WARNING, ConsoleColors.RED_BRIGHT + message);
+        log(LogLevel.WARNING, warnColor + message);
     }
+
+    private String infoColor = ConsoleColors.CYAN;
     /**
      * Doing this:
      * {@link SomeLogger#log(LogLevel, String)}
@@ -236,8 +241,10 @@ public class SomeLogger {
      * @param message The message that is to be output
      */
     public void info(String message) {
-        log(LogLevel.INFO, ConsoleColors.CYAN + message);
+        log(LogLevel.INFO, infoColor + message);
     }
+
+    private String debugColor = ConsoleColors.GREEN;
     /**
      * Doing this:
      * {@link SomeLogger#log(LogLevel, String)}
@@ -246,7 +253,25 @@ public class SomeLogger {
      * @param message The message that is to be output
      */
     public void debug(String message) {
-        log(LogLevel.DEBUG, ConsoleColors.GREEN + message);
+        log(LogLevel.DEBUG, debugColor + message);
+    }
+
+    /**
+     * This is like a prefix for the messages, so you can use {@link ConsoleColors}
+     * or just a {@link String}
+     *
+     * @param logLevel The {@link LogLevel} wich you want to change the color(prefix)
+     * @param color The color(prefix) to set
+     */
+    public void changeColor(LogLevel logLevel, String color) {
+        if (logLevel == LogLevel.ERROR)
+            errorColor = color;
+        if (logLevel == LogLevel.WARNING)
+            warnColor = color;
+        if (logLevel == LogLevel.INFO)
+            infoColor = color;
+        if (logLevel == LogLevel.DEBUG)
+            debugColor = color;
     }
 
     /**
