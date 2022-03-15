@@ -12,7 +12,7 @@ maven {
     url "https://repo.someworkflow.de/releases"
 }
 
-implementation "me.someoverflow:someutils:1.1.3"
+implementation "me.someoverflow:someutils:1.1.4"
 ```
 
 Maven
@@ -26,7 +26,7 @@ Maven
 <dependency>
   <groupId>me.someoverflow</groupId>
   <artifactId>someutils</artifactId>
-  <version>1.1.3</version>
+  <version>1.1.4</version>
 </dependency>
 ```
     
@@ -230,6 +230,9 @@ class Example {
         logger.warn(message);
         // Log a debug message
         logger.debug(message);
+        
+        // Change color/prefix of a LogLevel
+        logger.changeColor(LogLevel.INFO, colorOrPrefix);
     }
 }
 ```

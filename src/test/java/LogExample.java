@@ -1,3 +1,4 @@
+import me.someoverflow.someutils.log.ConsoleColors;
 import me.someoverflow.someutils.log.SomeLogFormatter;
 import me.someoverflow.someutils.log.SomeLogger;
 
@@ -11,8 +12,10 @@ import java.util.GregorianCalendar;
 public class LogExample {
 
     public static void main(String[] args) {
+        // Create the Logger
         SomeLogger logger = new SomeLogger("LogExample", true, "example/", "config.example");
-        logger.setBFormatter(new SomeLogFormatter() {
+        // Change the ConsoleFormatter
+        logger.setConsoleFormatter(new SomeLogFormatter() {
             @Override
             public String format(String logger, SomeLogger.LogLevel logLevel, String message) {
                 SimpleDateFormat logTime = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
@@ -29,6 +32,7 @@ public class LogExample {
             }
         });
 
+        // Change the FileFormatter
         logger.setFileFormatter(new SomeLogFormatter() {
             @Override
             public String format(String logger, SomeLogger.LogLevel logLevel, String message) {
@@ -36,10 +40,15 @@ public class LogExample {
             }
         });
 
+        // Change the info logging to black bold
+        logger.changeColor(SomeLogger.LogLevel.INFO, ConsoleColors.BLACK_BOLD);
+
+        // Log with custom formatter
         logger.logWF(SomeLogger.LogLevel.WARNING, "Warn Test", new SomeLogFormatter.Default());
 
         logger.info("Info Test");
 
+        // Enable debugging
         logger.setDebugging(true);
         logger.debug("Debug Test");
 
