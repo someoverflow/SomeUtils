@@ -1,5 +1,7 @@
 package me.someoverflow.someutils.file;
 
+import sun.text.resources.cldr.eo.FormatData_eo;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -72,7 +74,12 @@ public class SomeFile {
         toAdd.addAll(Arrays.asList(values));
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath + fileName));
-        for (String value : toAdd) writer.write(value + "\n");
+        for (int i = 0; i < toAdd.size(); i++) {
+            if (i == (toAdd.size() - 1))
+                writer.write(toAdd.get(i));
+            else
+                writer.write(toAdd.get(i) + "\n");
+        }
         writer.close();
     }
 
@@ -103,8 +110,10 @@ public class SomeFile {
         StringBuilder fileData = new StringBuilder();
         int counter = 0;
         for (String data : read()) {
-            if (counter == line) fileData.append(newLine);
-            else fileData.append(data);
+            if (counter == line)
+                fileData.append(newLine);
+            else
+                fileData.append(data);
             fileData.append("\n");
             counter++;
         }
@@ -119,7 +128,15 @@ public class SomeFile {
      */
     public void override(String... values) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath + fileName));
-        for (String value : values) writer.write(value + "\n");
+        if (values.length != 1) {
+            for (int i = 0; i < values.length; i++) {
+                if (i == (values.length - 1))
+                    writer.write(values[i]);
+                else
+                    writer.write(values[i] + "\n");
+            }
+        } else
+            writer.write(values[0]);
         writer.close();
     }
 

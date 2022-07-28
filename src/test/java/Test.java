@@ -9,7 +9,7 @@ import java.io.IOException;
 public class Test {
 
     public static void main(String[] args) {
-        SomeFile file = new SomeFile("test/bug/", "susy.baka");
+        SomeFile file = new SomeFile(System.getProperty("user.dir"), "/test.test");
 
         try {
             file.override("test1", "test2", "test3");
@@ -18,10 +18,9 @@ public class Test {
         }
 
         try {
-            file.change("test1", "testY");
-            file.changeLine(1, "testZ");
+            file.write("Test", "Test", "Test");
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
