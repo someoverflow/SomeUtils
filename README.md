@@ -260,10 +260,9 @@ More Info: https://www.someworkflow.de/contact
 
 ## Badges
 
-[![Version](https://repo.someworkflow.de/api/badge/latest/releases/me/someoverflow/someutils?color=40c14a&name=SomeUtils&prefix=v)](https://repo.someworkflow.de/#/snapshots/me/someoverflow/someutils)
+[![Version](https://repo.someworkflow.de/api/badge/latest/releases/me/someoverflow/someutils?color=40c14a&name=SomeUtils&prefix=v)](https://repo.someworkflow.de/#/releases/me/someoverflow/someutils/1.1.4)
 
-[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/SomeOverflow/SomeUtils/blob/master/LICENSE)
 ## License
-
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/SomeOverflow/SomeUtils/blob/master/LICENSE)
 [MIT](https://choosealicense.com/licenses/mit/)
 
