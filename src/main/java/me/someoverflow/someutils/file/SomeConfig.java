@@ -81,7 +81,6 @@ public class SomeConfig {
             return result;
     }
 
-    // TODO: 26.01.2022 Do it for every type
     /**
      * (This is in work could make errors please report them)
      * Change a String to a new value
@@ -131,6 +130,22 @@ public class SomeConfig {
     }
 
     /**
+     * (This is in work could make errors please report them)
+     * Change an Integer to a new value
+     *
+     * @param path The path in the config
+     * @param value The new value
+     * @throws IOException see {@link SomeFile#change(String, String)}
+     */
+    public void setInt(String path, Integer value) throws IOException {
+        Integer current = getInt(path);
+        String toChange = path + ": '" + current + "'";
+        String changeTo = path + ": '" + value + "'";
+
+        file.change(toChange, changeTo);
+    }
+
+    /**
      * Get a specific Double from the ConfigFile but only when it is like this in the file:
      * path: 'output'
      *
@@ -164,6 +179,22 @@ public class SomeConfig {
     }
 
     /**
+     * (This is in work could make errors please report them)
+     * Change a Double to a new value
+     *
+     * @param path The path in the config
+     * @param value The new value
+     * @throws IOException see {@link SomeFile#change(String, String)}
+     */
+    public void setDouble(String path, Double value) throws IOException {
+        Double current = getDouble(path);
+        String toChange = path + ": '" + current + "'";
+        String changeTo = path + ": '" + value + "'";
+
+        file.change(toChange, changeTo);
+    }
+
+    /**
      * Get a specific Boolean from the ConfigFile but only when it is like this in the file:
      * path: 'output'
      *
@@ -187,6 +218,22 @@ public class SomeConfig {
             return def;
         else
             return result;
+    }
+
+    /**
+     * (This is in work could make errors please report them)
+     * Change a Boolean to a new value
+     *
+     * @param path The path in the config
+     * @param value The new value
+     * @throws IOException see {@link SomeFile#change(String, String)}
+     */
+    public void setDouble(String path, Boolean value) throws IOException {
+        Boolean current = getBoolean(path);
+        String toChange = path + ": '" + current + "'";
+        String changeTo = path + ": '" + value + "'";
+
+        file.change(toChange, changeTo);
     }
 
     /**
