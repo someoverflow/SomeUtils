@@ -44,6 +44,7 @@ public class SomeDefaults {
      * Just runs {@link SomeDefaults#add(String, Object)} with {@link SomeFile#DESCRIPTION}
      *
      * @param key The Description
+     * @return The current {@link SomeDefaults}
      */
     public SomeDefaults addDes(String key) {
         return add(key, SomeFile.DESCRIPTION);
