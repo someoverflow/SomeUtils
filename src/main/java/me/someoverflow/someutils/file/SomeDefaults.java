@@ -21,18 +21,22 @@ public class SomeDefaults {
         values = new String[MAX_SIZE];
     }
 
-    public void add(String key, Object value) {
+    public SomeDefaults add(String key, Object value) {
         keys[size] = key;
         values[size] = value.toString();
         size++;
+
+        return this;
     }
 
-    public void addList(String name, List<Object> value) {
+    public SomeDefaults addList(String name, List<Object> value) {
         // Add the Name
         addDes(name + " #{");
         for (Object s : value)
             addDes("\t- " + s.toString());
         addDes("}");
+
+        return this;
     }
 
     /**
@@ -41,8 +45,8 @@ public class SomeDefaults {
      *
      * @param key The Description
      */
-    public void addDes(String key) {
-        add(key, SomeFile.DESCRIPTION);
+    public SomeDefaults addDes(String key) {
+        return add(key, SomeFile.DESCRIPTION);
     }
 
     public String getKey(int index) {
