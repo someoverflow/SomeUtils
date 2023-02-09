@@ -1,9 +1,10 @@
 # SomeUtils
 
-Just a simple & stupid Library for Java
+### Just a simple library for Java
 
-I really don't know why you should use this,
-but I am going to use this for my Projects ;)
+You should not use this lib! <br />
+It is still incredibly bad and therefore expandable. <br />
+If you still use the lib, you have the option of writing errors under the issues tab.
 
 ## Installation
 Gradle
@@ -12,27 +13,29 @@ maven {
     url "https://repo.someworkflow.de/releases"
 }
 
-implementation "me.someoverflow:someutils:1.1.4"
+implementation "me.someoverflow:someutils:1.1.5"
 ```
 
 Maven
 ```gradle
 <repository>
-  <id>somerepo-releases</id>
-  <name>Some Repository</name>
+  <id>some-repo-releases</id>
+  <name>somerepo</name>
   <url>https://repo.someworkflow.de/releases</url>
 </repository>
 
 <dependency>
   <groupId>me.someoverflow</groupId>
   <artifactId>someutils</artifactId>
-  <version>1.1.4</version>
+  <version>1.1.5</version>
 </dependency>
 ```
     
 ## File Usage/Examples
 
-Create/Get a File
+[Full Example Class](https://github.com/SomeOverflow/SomeUtils/blob/master/src/test/java/FileExample.java)
+
+Create / Get a file
 ```java
 class Example {
     public static void main(String[] args) {
@@ -42,7 +45,7 @@ class Example {
 }
 ```
 
-Set Defaults for a File
+Set and Save the defaults to a file
 ```java
 class Example {
     public static void main(String[] args) {
@@ -61,20 +64,13 @@ class Example {
         );
         // Set the defaults finally
         file.setDefaults(defaults);
-    }
-}
-```
 
-Save the Defaults to the File
-```java
-class Example {
-    public static void main(String[] args) {
         file.saveDefaults();
     }
 }
 ```
 
-Read / Write to the File
+Read / Write to a file
 ```java
 class Example {
     public static void main(String[] args) {
@@ -92,7 +88,7 @@ class Example {
 }
 ```
 
-Rename and Move a File
+Rename and Move a file
 ```java
 class Example {
     public static void main(String[] args) {
@@ -104,19 +100,12 @@ class Example {
 }
 ```
 
-Get a SomeConfig
+Get a SomeConfig and their values
 ```java
 class Example {
     public static void main(String[] args) {
         SomeConfig config = new SomeConfig(file);
-    }
-}
-```
 
-Get values from a config
-```java
-class Example {
-    public static void main(String[] args) {
         // Get a String
         config.getString(path); // => String
         // Get a Integer
@@ -129,22 +118,21 @@ class Example {
 }
 ```
 
-[Full Example Class](https://github.com/SomeOverflow/SomeUtils/blob/master/src/test/java/FileExample.java)
 ## Logger Usage/Examples
 
-Default Logger
-```java
-class Example {
-    public static void main(String[] args) {
-        SomeLogger logger = new SomeLogger("name");
-    }
-}
-```
+[Full Example Class](https://github.com/SomeOverflow/SomeUtils/blob/master/src/test/java/LogExample.java)
 
-Logger with custom Formatter
+Get a logger with:
+ - Name
+ - Name & Formatter
+ - Name & File to log to
 ```java
 class Example {
     public static void main(String[] args) {
+        // With name
+        SomeLogger logger = new SomeLogger("name");
+
+        // With name and custom Formatter
         SomeLogger logger = new SomeLogger("name", new SomeLogFormatter() {
             @Override
             public String format(String logger, SomeLogger.LogLevel logLevel, String message) {
@@ -152,73 +140,14 @@ class Example {
                 return message;
             }
         });
-    }
-}
-```
-
-Change the custom Formatter in the Console
-```java
-class Example {
-    public static void main(String[] args) {
-        // Change the Formatter
-        logger.setConsoleFormatter(new SomeLogFormatter() {
-            @Override
-            public String format(String logger, SomeLogger.LogLevel logLevel, String message) {
-                // Returns the message which will be written in the console
-                return message;
-            }
-        });
-    }
-}
-```
-
-Logger with File
-```java
-class Example {
-    public static void main(String[] args) {
-        // Create the Logger
+        
+        // With a name and a file to log to
         SomeLogger logger = new SomeLogger("name", true, "path/", "name.custom");
     }
 }
 ```
 
-Change the custom Formatter in the File
-```java
-class Example {
-    public static void main(String[] args) {
-        // Set the formatter for the file
-        logger.setFileFormatter(new SomeLogFormatter() {
-            @Override
-            public String format(String logger, SomeLogger.LogLevel logLevel, String message) {
-                // Returns the message which will be written in the file
-                return message;
-            }
-        });
-    }
-}
-```
-
-Disable/Enable Console Logging
-```java
-class Example {
-    public static void main(String[] args) {
-        // Change if the logger should write to the Console
-        logger.setToConsole(true / false);
-    }
-}
-```
-
-Disable/Enable Debugging
-```java
-class Example {
-    public static void main(String[] args) {
-        // Change if logger.debug() will be logged
-        logger.setDebugging(true / false);
-    }
-}
-```
-
-Log a Message
+Log a Message and change color for a LogLevel
 ```java
 class Example {
     public static void main(String[] args) {
@@ -233,16 +162,9 @@ class Example {
         
         // Change color/prefix of a LogLevel
         logger.changeColor(LogLevel.INFO, colorOrPrefix);
-    }
-}
-```
-
-Log a Message with another Formatter
-```java
-class Example {
-    public static void main(String[] args) {
+        
         // Log a message with custom formatter
-        logger.logWF(SomeLogger.LogLevel.INFO, "Test", new SomeLogFormatter() {
+        logger.logWF(SomeLogger.LogLevel.INFO, message, new SomeLogFormatter() {
             @Override
             public String format(String logger, SomeLogger.LogLevel logLevel, String message) {
                 return message;
@@ -252,11 +174,51 @@ class Example {
 }
 ```
 
-[Full Example Class](https://github.com/SomeOverflow/SomeUtils/blob/master/src/test/java/LogExample.java)
+Change the formatter:
+ - In Console
+ - In File
+```java
+class Example {
+    public static void main(String[] args) {
+        // Set the formatter for the console
+        logger.setConsoleFormatter(new SomeLogFormatter() {
+            @Override
+            public String format(String logger, SomeLogger.LogLevel logLevel, String message) {
+                // Returns the message which will be written in the console
+                return message;
+            }
+        });
+
+        // Set the formatter for the file
+        logger.setFileFormatter(new SomeLogFormatter() {
+            @Override
+            public String format(String logger, SomeLogger.LogLevel logLevel, String message) {
+                // Returns the message which will be written in the file
+                return message;
+            }
+        });
+    }
+}
+```
+
+Toggle:
+ - Console Logging
+ - Debugging
+```java
+class Example {
+    public static void main(String[] args) {
+        // Change if the logger should write to the Console
+        logger.setToConsole(true / false);
+        
+        // Change if logger.debug() will be logged
+        logger.setDebugging(true / false);
+    }
+}
+```
 
 ## Support
 
-More Info: https://www.someworkflow.de/contact
+Feel free to use the Issues tab!
 
 ## Badges
 
@@ -264,4 +226,3 @@ More Info: https://www.someworkflow.de/contact
 
 ## License
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://raw.githubusercontent.com/SomeOverflow/SomeUtils/master/LICENSE)
-

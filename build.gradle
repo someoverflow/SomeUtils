@@ -37,6 +37,7 @@ publishing {
             groupId = 'me.someoverflow'
             artifactId = 'someutils'
             version = project.version
+
             from components.java
 
             pom {
@@ -50,6 +51,7 @@ publishing {
                 developers {
                     developer {
                         id = 'SomeOverflow'
+                        email = 'someoverflow@someworkflow.de'
                     }
                 }
             }
