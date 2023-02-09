@@ -3,7 +3,7 @@ package me.someoverflow.someutils.file;
 import java.util.List;
 
 /**
- * Just a List because I am Stoopid
+ * A list where the keys and values are in one line
  *
  * @author SomeOverflow
  */

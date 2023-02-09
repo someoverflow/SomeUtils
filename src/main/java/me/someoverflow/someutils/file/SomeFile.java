@@ -1,7 +1,5 @@
 package me.someoverflow.someutils.file;
 
-import sun.text.resources.cldr.eo.FormatData_eo;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
