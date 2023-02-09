@@ -41,10 +41,10 @@ public class LogExample {
         });
 
         // Change the info logging to black bold
-        logger.changeColor(SomeLogger.LogLevel.INFO, ConsoleColors.BLACK_BOLD);
+        logger.changeColor(SomeLogger.LogLevel.INFO, ConsoleColors.BLACK_BOLD.color);
 
         // Log with custom formatter
-        logger.logWF(SomeLogger.LogLevel.WARNING, "Warn Test", new SomeLogFormatter.Default());
+        logger.logWithFormatter(SomeLogger.LogLevel.WARNING, "Warn Test", new SomeLogFormatter.Default());
 
         logger.info("Info Test");
 
