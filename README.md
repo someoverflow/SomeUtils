@@ -263,6 +263,5 @@ More Info: https://www.someworkflow.de/contact
 [![Version](https://repo.someworkflow.de/api/badge/latest/releases/me/someoverflow/someutils?color=40c14a&name=SomeUtils&prefix=v)](https://repo.someworkflow.de/#/releases/me/someoverflow/someutils/1.1.4)
 
 ## License
-[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/SomeOverflow/SomeUtils/blob/master/LICENSE)
-[MIT](https://choosealicense.com/licenses/mit/)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://raw.githubusercontent.com/SomeOverflow/SomeUtils/master/LICENSE)
 
