@@ -1,5 +1,7 @@
 package me.someoverflow.someutils.misc;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -10,14 +12,21 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 /**
- * Just a class to zip and unzip files
+ * Methods to zip and unzip a file or multiple files
  *
  * @author SomeOverflow
  */
 @SuppressWarnings("unused")
 public class SomeZip {
 
-    public static void unZipFile(File fileToUnzip, String output) throws Exception {
+    /**
+     * Put the files in a zip into the given output directory
+     *
+     * @param fileToUnzip The zip file that should get unzipped (have to end with .zip)
+     * @param output The output directory
+     * @throws Exception If there was a problem while unzipping
+     */
+    public static void unZFile(File fileToUnzip, String output) throws Exception {
         File destDir = new File(output);
 
         byte[] buffer = new byte[1024];
@@ -64,7 +73,7 @@ public class SomeZip {
      * Zip a source file to the output
      *
      * @param fileToZip The {@link File} which is going to be in the zip
-     * @param output The zip file with the source file (should end with .zip)
+     * @param output The zip file with the source file (have to end with .zip)
      * @throws Exception If there is any Exception while zipping
      */
     public static void zFile(File fileToZip, String output) throws Exception {
@@ -95,10 +104,10 @@ public class SomeZip {
      * Zip multiple source files to the output
      *
      * @param filesToZip The {@link File} in a {@link List} which is going to be in the zip
-     * @param output The zip file with the source file (should end with .zip)
+     * @param output The zip file with the source file (have to end with .zip)
      * @throws Exception If there is any Exception while zipping
      */
-    public static void zMFiles(@org.jetbrains.annotations.NotNull List<File> filesToZip, String output) throws Exception {
+    public static void zFile(@NotNull List<File> filesToZip, String output) throws Exception {
         // Create the OutputStream for the output zip
         FileOutputStream outputOut = new FileOutputStream(output);
         ZipOutputStream zipOut = new ZipOutputStream(outputOut);

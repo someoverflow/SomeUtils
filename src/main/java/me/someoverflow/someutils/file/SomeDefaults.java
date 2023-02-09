@@ -41,7 +41,7 @@ public class SomeDefaults {
 
     /**
      * Adds a Description
-     * Just runs {@link SomeDefaults#add(String, Object)} with {@link SomeFile#DESCRIPTION}
+     * Runs {@link SomeDefaults#add(String, Object)} with {@link SomeFile#DESCRIPTION}
      *
      * @param key The Description
      * @return The current {@link SomeDefaults}

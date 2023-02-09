@@ -1,6 +1,7 @@
 package me.someoverflow.someutils.file;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -23,6 +24,7 @@ public class SomeConfig {
      * list #{
      *     - values
      * }
+     *
      * @param path The path in the config
      * @return The value of the List
      */
@@ -47,6 +49,8 @@ public class SomeConfig {
         if (!closed) return null;
         return result;
     }
+
+
 
     /**
      * Get a specific String from the ConfigFile but only when it is like this in the file:
@@ -214,20 +218,25 @@ public class SomeConfig {
     }
 
     /**
-     * (This is in work could make errors please report them)
      * Change a Boolean to a new value
      *
      * @param path The path in the config
      * @param value The new value
      * @throws IOException see {@link SomeFile#change(String, String)}
      */
-    public void setDouble(String path, Boolean value) throws IOException {
+    public void setBoolean(String path, Boolean value) throws IOException {
         Boolean current = getBoolean(path);
         String toChange = path + ": '" + current + "'";
         String changeTo = path + ": '" + value + "'";
 
         file.change(toChange, changeTo);
     }
+
+    /* TODO:
+    public <T> T get(String path, Class<T> type) {
+        return type.parse(getString(path));
+    }
+    */
 
     /**
      * Get a CharSequence between 2 chars ( like 'test' is test )

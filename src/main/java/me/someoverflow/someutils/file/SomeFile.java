@@ -1,9 +1,9 @@
 package me.someoverflow.someutils.file;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author SomeOverflow
@@ -18,7 +18,7 @@ public class SomeFile {
 
     private List<String> defaults;
 
-    public SomeFile(String filePath, String fileName) {
+    public SomeFile(@NotNull String filePath, @NotNull String fileName) {
         this.filePath = filePath;
         File directory = new File(filePath);
         if (!directory.exists()) fileCreated = directory.mkdirs();
@@ -29,11 +29,11 @@ public class SomeFile {
 
     /**
      * Set the defaults of the file
-     * SomeFile#DESCRIPTION will be a description in the config
+     * {@link SomeFile#DESCRIPTION} will be a description in the config
      *
-     * @param defaults A "list" of the defaults
+     * @param defaults A list of the defaults
      */
-    public void setDefaults(SomeDefaults defaults) {
+    public void setDefaults(@NotNull SomeDefaults defaults) {
         this.defaults = new ArrayList<>();
         for (int i = 0; i < defaults.getSize(); i++) {
             String value = defaults.getValue(i);
@@ -47,9 +47,9 @@ public class SomeFile {
     }
 
     /**
-     * If the file does not exist yet, it saves the {@link SomeFile#setDefaults(SomeDefaults) given defaults} in the new file
+     * If the file does not exist, it saves the {@link SomeFile#setDefaults(SomeDefaults) given defaults} in the new file
      *
-     * @throws IOException When the {@link SomeFile#write(String...) write function} is throwing something
+     * @throws IOException See {@link SomeFile#write(String...)}
      */
     public void saveDefaults() throws IOException {
         if (!new File(filePath + fileName).exists()) {
@@ -59,12 +59,12 @@ public class SomeFile {
     }
 
     /**
-     * Add Lines to a file, every value String will be separated with \n to create a new line
+     * Add Lines to a file, every value String will be separated with a new line
      *
      * @param values The lines to add to the file
-     * @throws IOException {@link BufferedWriter} and {@link FileWriter}
+     * @throws IOException See {@link BufferedWriter} and {@link FileWriter}
      */
-    public void write(String... values) throws IOException {
+    public void write(@NotNull String... values) throws IOException {
         List<String> toAdd = new ArrayList<>();
 
         List<String> read = read();
@@ -83,56 +83,58 @@ public class SomeFile {
     }
 
     /**
-     * Changes every oldLine to the newLine parameter
+     * Replaces every oldString with the newString in the file
      *
-     * @param oldLine The old line to change
-     * @param newLine The new line to change to
-     * @throws IOException see {@link SomeFile#override(String...)}
+     * @param oldString The old string to change
+     * @param newString The new string to change to
+     * @throws IOException See {@link SomeFile#override(String...)}
      */
-    public void change(String oldLine, String newLine) throws IOException {
+    public void change(@NotNull String oldString, @NotNull String newString) throws IOException {
         StringBuilder fileData = new StringBuilder();
         for (String s : read())
             fileData.append(s).append("\n");
-        String res = fileData.toString().replace(oldLine, newLine);
+        String res = fileData.toString().replaceAll(oldString, newString);
         override(res);
     }
 
     /**
-     * Changes the specific line to the newLine parameter
-     * The first line is 0 and so on
+     * Changes the specific line to a new string
+     * Starting at 0
      *
      * @param line The line which will be changed
-     * @param newLine The new line it will be changed to
-     * @throws IOException see {@link SomeFile#override(String...)}
+     * @param newData The new string it will be changed to
+     * @throws IOException See {@link SomeFile#override(String...)}
      */
-    public void changeLine(int line, String newLine) throws IOException {
+    public void changeLine(int line, String newData) throws IOException {
         StringBuilder fileData = new StringBuilder();
         int counter = 0;
         for (String data : read()) {
-            if (counter == line)
-                fileData.append(newLine);
-            else
-                fileData.append(data);
+            fileData.append(
+                    counter == line ? newData : data
+            );
+
             fileData.append("\n");
             counter++;
         }
+
         override(fileData.toString());
     }
 
     /**
-     * Override a file, every value String will be separated with \n to create a new line
+     * Override a file, every value String will be separated with a new line
      *
      * @param values The Values to add
-     * @throws IOException {@link BufferedWriter} and {@link FileWriter}
+     * @throws IOException See {@link BufferedWriter} and {@link FileWriter}
      */
     public void override(String... values) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath + fileName));
         if (values.length != 1) {
             for (int i = 0; i < values.length; i++) {
-                if (i == (values.length - 1))
-                    writer.write(values[i]);
-                else
-                    writer.write(values[i] + "\n");
+                writer.write(
+                        i == (values.length - 1) ?
+                                values[i] :
+                                values[i] + "\n"
+                );
             }
         } else
             writer.write(values[0]);
@@ -140,21 +142,24 @@ public class SomeFile {
     }
 
     /**
-     * To clear the file (Could be make Errors)
-     * @throws IOException Look {@link SomeFile#override(String...)}
+     * Make the file blank
+     *
+     * @throws IOException See {@link SomeFile#override(String...)}
      */
     @Deprecated
     public void clear() throws IOException {
-        override();
+        override(" ", " ", " ");
     }
 
     /**
-     * Get the lines of the given file in a String List
+     * Get the lines of the file
      *
-     * @return The lines (is null if the file is not existing)
+     * @return The lines (if null, the file is not existing)
      */
     public List<String> read() {
-        if (!new File(filePath + fileName).exists()) return null;
+        if (!new File(filePath + fileName).exists())
+            return null;
+
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filePath + fileName));
             ArrayList<String> result = new ArrayList<>();
@@ -168,55 +173,69 @@ public class SomeFile {
     }
 
     /**
-     * Creates a new file and writes in everything that was in the old one
+     * Creates a new file and writes in everything of the old one in it
+     * Deletes the old one
      *
-     * @param nName The new Name
+     * @param newName The new Name
+     * @return A List with the keys deleteOldFile (if the old file got deleted) and deleteNewFile (when the new file already existed got deleted)
      * @throws IOException When there is any error while writing to the new File
      */
-    public void rename(String nName) throws IOException {
+    public HashMap<String, Object> rename(String newName) throws IOException {
         // Read the data from the old file
         List<String> oValues = read();
         // Delete the old File
-        new File(filePath + fileName).delete();
+        boolean deleteOldFile = new File(filePath + fileName).delete();
         // Delete the new File if it is existing
-        new File(filePath + nName).delete();
+        boolean deleteNewFile = new File(filePath + newName).delete();
 
         // Set the new Name
-        fileName = nName;
+        fileName = newName;
 
         if (oValues != null) {
             if (oValues.size() != 0)
                 for (String value : oValues) write(value);
         }
+
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("deleteOldFile", deleteNewFile);
+        result.put("deleteNewFile", deleteNewFile);
+        return result;
     }
 
     /**
      * Move a file to a new Directory
-     * @param nPath The new Path
+     *
+     * @param newPath The new Path
+     * @return A List with the keys createdDirectory (if the new directory got created) and deletedOldFile (if the old file got deleted)
      * @throws IOException When there is any error while moving to the new path
      */
-    public void move(String nPath) throws IOException {
+    public HashMap<String, Object> move(String newPath) throws IOException {
         // Create the new Directory
-        new File(nPath).mkdirs();
+        boolean createdDirectory = new File(newPath).mkdirs();
 
         // Read the data from the old file
         List<String > oValues = read();
 
         // Delete the old File
-        new File(filePath + fileName).delete();
+        boolean deletedOldFile = new File(filePath + fileName).delete();
 
         // Set the new FilePath
-        filePath = nPath;
+        filePath = newPath;
 
         // Put the old data in the file
         if (oValues != null) {
             if (oValues.size() != 0)
                 for (String value : oValues) write(value);
         }
+
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("createdDirectory", createdDirectory);
+        result.put("deletedOldFile", deletedOldFile);
+        return result;
     }
 
     /**
-     * Delete the current file
+     * Delete the file
      *
      * @return If the file is deleted
      */
@@ -225,11 +244,11 @@ public class SomeFile {
     }
 
     /**
-     * Delete a File with the given data
+     * Delete a file with the given data
      *
      * @param path The path of the File (Should end with / )
      * @param name The name of the File
-     * @return If the file is deleted
+     * @return If the file got deleted
      */
     public boolean delete(String path, String name) {
         return new File(path + name).delete();

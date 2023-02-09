@@ -177,6 +177,7 @@ class Example {
 Change the formatter:
  - In Console
  - In File
+ - Both
 ```java
 class Example {
     public static void main(String[] args) {
@@ -191,6 +192,16 @@ class Example {
 
         // Set the formatter for the file
         logger.setFileFormatter(new SomeLogFormatter() {
+            @Override
+            public String format(String logger, SomeLogger.LogLevel logLevel, String message) {
+                // Returns the message which will be written in the file
+                return message;
+            }
+        });
+
+
+        // Set both formatters
+        logger.setBothFormatter(new SomeLogFormatter() {
             @Override
             public String format(String logger, SomeLogger.LogLevel logLevel, String message) {
                 // Returns the message which will be written in the file
