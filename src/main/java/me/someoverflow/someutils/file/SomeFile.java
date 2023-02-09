@@ -8,6 +8,7 @@ import java.util.List;
 /**
  * @author SomeOverflow
  */
+@SuppressWarnings("unused")
 public class SomeFile {
 
     private String filePath;

@@ -14,6 +14,7 @@ import java.util.zip.ZipOutputStream;
  *
  * @author SomeOverflow
  */
+@SuppressWarnings("unused")
 public class SomeZip {
 
     public static void unZipFile(File fileToUnzip, String output) throws Exception {
@@ -97,7 +98,7 @@ public class SomeZip {
      * @param output The zip file with the source file (should end with .zip)
      * @throws Exception If there is any Exception while zipping
      */
-    public static void zMFiles(List<File> filesToZip, String output) throws Exception {
+    public static void zMFiles(@org.jetbrains.annotations.NotNull List<File> filesToZip, String output) throws Exception {
         // Create the OutputStream for the output zip
         FileOutputStream outputOut = new FileOutputStream(output);
         ZipOutputStream zipOut = new ZipOutputStream(outputOut);
@@ -125,5 +126,4 @@ public class SomeZip {
         zipOut.close();
         outputOut.close();
     }
-
 }

@@ -3,12 +3,14 @@ package me.someoverflow.someutils.file;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * @author SomeOverflow
  */
+@SuppressWarnings("unused")
 public class SomeConfig {
 
     private final SomeFile file;
@@ -123,10 +125,7 @@ public class SomeConfig {
      */
     public int getInt(String path, int def) {
         Integer result = getInt(path);
-        if (result == null)
-            return def;
-        else
-            return result;
+        return Objects.requireNonNullElse(result, def);
     }
 
     /**
@@ -172,10 +171,7 @@ public class SomeConfig {
      */
     public double getDouble(String path, double def) {
         Double result = getDouble(path);
-        if (result == null)
-            return def;
-        else
-            return result;
+        return Objects.requireNonNullElse(result, def);
     }
 
     /**
@@ -214,10 +210,7 @@ public class SomeConfig {
      */
     public boolean getBoolean(String path, boolean def) {
         Boolean result = getBoolean(path);
-        if (result == null)
-            return def;
-        else
-            return result;
+        return Objects.requireNonNullElse(result, def);
     }
 
     /**

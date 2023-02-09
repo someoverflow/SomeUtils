@@ -9,6 +9,7 @@ import java.util.Date;
 /**
  * @author SomeOverflow
  */
+@SuppressWarnings("unused")
 public class SomeLogger {
 
     private final String name;
