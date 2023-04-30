@@ -1,5 +1,7 @@
 package me.someoverflow.someutils.log;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -26,15 +28,15 @@ public abstract class SomeLogFormatter {
      */
     public static class Default extends SomeLogFormatter {
         @Override
-        public String format(String logger, SomeLogger.LogLevel logLevel, String message) {
+        public String format(String logger, SomeLogger.@NotNull LogLevel logLevel, String message) {
             SimpleDateFormat logTime = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
             Calendar cal = new GregorianCalendar();
             cal.setTimeInMillis(System.currentTimeMillis());
 
             return logTime.format(cal.getTime())
                     + " - "
-                    + logLevel
-                    + " || "
+                    + logLevel.getName()
+                    + " | "
                     + logger
                     + " : "
                     + message;

@@ -15,7 +15,7 @@ maven {
     url "https://repo.someworkflow.de/releases"
 }
 
-implementation "me.someoverflow:someutils:1.1.9"
+implementation "me.someoverflow:someutils:1.2.0"
 ```
 
 Maven
@@ -29,13 +29,13 @@ Maven
 <dependency>
   <groupId>me.someoverflow</groupId>
   <artifactId>someutils</artifactId>
-  <version>1.1.9</version>
+  <version>1.2.0</version>
 </dependency>
 ```
 
 ## File Usage/Examples
 
-[Full Example Class](https://github.com/SomeOverflow/SomeUtils/blob/master/src/test/java/me/someoverflow/someutils/FileExample.java)
+[Tests with JUnit](https://github.com/SomeOverflow/SomeUtils/blob/master/src/test/java/me/someoverflow/someutils/FileTest.java)
 
 Create / Get a file
 ```java
@@ -133,7 +133,7 @@ class Example {
 
 ## Logger Usage/Examples
 
-[Full Example Class](https://github.com/SomeOverflow/SomeUtils/blob/master/src/test/java/me/someoverflow/someutils/LogExample.java)
+[Tests with JUnit](https://github.com/SomeOverflow/SomeUtils/blob/master/src/test/java/me/someoverflow/someutils/LogTest.java)
 
 Get a logger with:
  - Name
@@ -243,6 +243,7 @@ class Example {
 ## Support
 
 Feel free to contribute and create issues!
+Using junit for test they should pass if you want to contribute.
 
 ## Badges
 

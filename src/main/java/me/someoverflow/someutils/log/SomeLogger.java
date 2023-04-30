@@ -213,46 +213,37 @@ public class SomeLogger {
      *
      * @param logLevel {@link LogLevel}
      * @param message The message to be output
+     * @param reset If there should be the {@link ConsoleColors#RESET} after the message
      */
-    public void log(LogLevel logLevel, String message) {
-        if (toConsole) {
-            if (!debugging) {
-                if (logLevel != LogLevel.DEBUG)
-                    System.out.println(consoleFormatter.format(name, logLevel, message + ConsoleColors.RESET));
-            } else
-                System.out.println(consoleFormatter.format(name, logLevel, message + ConsoleColors.RESET));
+    public void log(LogLevel logLevel, String message, boolean reset) {
+        if (toFile) {
+            try {
+                assert fileManager != null;
+                fileManager.write(fileFormatter.format(name, logLevel, message));
+            } catch (IOException ignored) { }
         }
 
-        if (!toFile) return;
-        try {
-            assert fileManager != null;
-            fileManager.write(fileFormatter.format(name, logLevel, message));
-        } catch (IOException ignored) { }
+        if (toConsole) {
+            if (logLevel == LogLevel.ERROR)
+                System.err.println(consoleFormatter.format(name, logLevel, message + (reset ? ConsoleColors.RESET : "")));
+
+            if (!debugging) {
+                if (logLevel != LogLevel.DEBUG)
+                    System.out.println(consoleFormatter.format(name, logLevel, message + (reset ? ConsoleColors.RESET : "")));
+            } else
+                System.out.println(consoleFormatter.format(name, logLevel, message + (reset ? ConsoleColors.RESET : "")));
+        }
     }
 
     /**
-     * Log a message with the given {@link SomeLogFormatter Formatter}
+     * Log a message with the given {@link LogLevel} with color reset at the end
+     * see {@link SomeLogger#log(LogLevel, String, boolean)}}
      *
-     * @deprecated Use now {@link SomeLogger#logWithFormatter(LogLevel, String, SomeLogFormatter)}
-     * @param logLevel {@link LogLevel The LogLevel of the Log}
-     * @param message The message to be logged
-     * @param formatter {@link SomeLogFormatter The Formatter}
+     * @param logLevel {@link LogLevel}
+     * @param message The message to be output
      */
-    @Deprecated
-    public void logWF(LogLevel logLevel, String message, SomeLogFormatter formatter) {
-        if (toConsole) {
-            if (!debugging) {
-                if (logLevel != LogLevel.DEBUG)
-                    System.out.println(consoleFormatter.format(name, logLevel, message + ConsoleColors.RESET));
-            } else
-                System.out.println(consoleFormatter.format(name, logLevel, message + ConsoleColors.RESET));
-        }
-
-        if (toFile) return;
-        try {
-            assert fileManager != null;
-            fileManager.write(formatter.format(name, logLevel, message));
-        } catch (IOException ignored) { }
+    public void log(LogLevel logLevel, String message) {
+        log(logLevel, message, true);
     }
 
     /**
@@ -278,18 +269,18 @@ public class SomeLogger {
         } catch (IOException ignored) { }
     }
 
-    private String errorColor = ConsoleColors.RED.color;
+    public static String errorColor = ConsoleColors.RED.color;
     /**
      * Doing this:
      * {@link SomeLogger#log(LogLevel, String)}
-     * with 'LogLevel.ERROR'
+     * with 'LogLevel.ERROR' with color
      * @param message The message that is to be output
      */
     public void error(String message) {
         log(LogLevel.ERROR, errorColor + message);
     }
 
-    private String warnColor = ConsoleColors.RED_BRIGHT.color;
+    public static String warnColor = ConsoleColors.RED_BRIGHT.color;
     /**
      * Doing this:
      * {@link SomeLogger#log(LogLevel, String)}
@@ -300,7 +291,7 @@ public class SomeLogger {
         log(LogLevel.WARNING, warnColor + message);
     }
 
-    private String infoColor = ConsoleColors.CYAN.color;
+    public static  String infoColor = ConsoleColors.CYAN.color;
     /**
      * Doing this:
      * {@link SomeLogger#log(LogLevel, String)}
@@ -311,7 +302,7 @@ public class SomeLogger {
         log(LogLevel.INFO, infoColor + message);
     }
 
-    private String debugColor = ConsoleColors.GREEN.color;
+    public static String debugColor = ConsoleColors.GREEN.color;
     /**
      * Doing this:
      * {@link SomeLogger#log(LogLevel, String)}
@@ -321,24 +312,6 @@ public class SomeLogger {
      */
     public void debug(String message) {
         log(LogLevel.DEBUG, debugColor + message);
-    }
-
-    /**
-     * This is like a prefix for the messages, so you can use {@link ConsoleColors}
-     * or just a {@link String}
-     *
-     * @param logLevel The {@link LogLevel} wich you want to change the color(prefix)
-     * @param color The color(prefix) to set
-     */
-    public void changeColor(LogLevel logLevel, String color) {
-        if (logLevel == LogLevel.ERROR)
-            errorColor = color;
-        if (logLevel == LogLevel.WARNING)
-            warnColor = color;
-        if (logLevel == LogLevel.INFO)
-            infoColor = color;
-        if (logLevel == LogLevel.DEBUG)
-            debugColor = color;
     }
 
     /**
