@@ -2,6 +2,7 @@ package me.someoverflow.someutils.file;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,7 +13,8 @@ import java.util.List;
  */
 public class SomeDefaults {
 
-    private final HashMap<String, Object> content;
+    private final HashMap<Integer, AbstractMap.SimpleEntry<String, Object>> content;
+    private Integer size;
 
     /**
      * List for config defaults
@@ -29,7 +31,8 @@ public class SomeDefaults {
      * @return The current {@link SomeDefaults}
      */
     public SomeDefaults add(String key, @NotNull Object value) {
-        content.put(key, value);
+        size = (size == null) ? 0 : size + 1;
+        content.put(size, new AbstractMap.SimpleEntry<>(key, value));
         return this;
     }
 
@@ -78,7 +81,7 @@ public class SomeDefaults {
      * @return The key of the index
      */
     public String getKey(int index) {
-        return content.keySet().toArray()[index].toString();
+        return content.get(index).getKey();
     }
 
     /**
@@ -87,7 +90,7 @@ public class SomeDefaults {
      * @return The value
      */
     public String getValue(int index) {
-        return content.values().toArray()[index].toString();
+        return content.get(index).getValue().toString();
     }
 
     /**

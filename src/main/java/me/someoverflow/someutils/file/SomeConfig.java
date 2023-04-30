@@ -47,6 +47,7 @@ public class SomeConfig {
 
                 if (s.startsWith("\t- "))
                     result.add(s.replaceFirst("\t- ", ""));
+                // TODO: 30.04.2023 return the right object
             }
         }
 
