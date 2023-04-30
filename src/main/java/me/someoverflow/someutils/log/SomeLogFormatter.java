@@ -20,6 +20,10 @@ public abstract class SomeLogFormatter {
      */
     public abstract String format(String logger, SomeLogger.LogLevel logLevel, String message);
 
+    /**
+     * Default formatter if none is given.
+     * Example: "12-15-2021 15:16:20 - INFO || System : Example message"
+     */
     public static class Default extends SomeLogFormatter {
         @Override
         public String format(String logger, SomeLogger.LogLevel logLevel, String message) {

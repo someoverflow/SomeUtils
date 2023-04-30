@@ -2,9 +2,11 @@
 
 ### Just a simple library for Java
 
-You should not use this lib! <br />
-It is still incredibly bad and therefore expandable. <br />
-If you still use the lib, you have the option of writing errors under the issues tab.
+Versions 1-7 have been removed due to a fatal bug
+
+It's _not_ recommended to use this lib! <br />
+It is still _bad_ and therefore _expandable_. <br />
+If you still use the lib, please write if there are problems under the issues tab!
 
 ## Installation
 Gradle
@@ -13,7 +15,7 @@ maven {
     url "https://repo.someworkflow.de/releases"
 }
 
-implementation "me.someoverflow:someutils:1.1.5"
+implementation "me.someoverflow:someutils:1.1.8"
 ```
 
 Maven
@@ -27,20 +29,56 @@ Maven
 <dependency>
   <groupId>me.someoverflow</groupId>
   <artifactId>someutils</artifactId>
-  <version>1.1.5</version>
+  <version>1.1.8</version>
 </dependency>
 ```
-    
+
 ## File Usage/Examples
 
-[Full Example Class](https://github.com/SomeOverflow/SomeUtils/blob/master/src/test/java/FileExample.java)
+[Full Example Class](https://github.com/SomeOverflow/SomeUtils/blob/master/src/test/java/me/someoverflow/someutils/FileExample.java)
 
 Create / Get a file
 ```java
 class Example {
     public static void main(String[] args) {
-        // Path should end with / ,and the file extension should not matter
-        SomeFile file = new SomeFile("path/", "file.name");
+        // Path should end with a slash, and the file extension should not matter
+        // Leave the path empty for the execution path
+        SomeFile file = new SomeFile("path/", "file.name"); // => SomeFile
+    }
+}
+```
+
+Rename, Move and Delete a file
+```java
+class Example {
+    public static void main(String[] args) {
+        // Rename the File (deletes the file if it already existed)
+        file.rename("new.name"); // => HashMap<String, Object> with the self-explaining keys deleteOldFile deleteNewFile
+        
+        // Move the File ! todo: check if the file exists
+        file.move("new/path/"); // => HashMap<String, Object> with the self-explaining keys createdDirectory deletedOldFile
+        
+        // Delete the file
+        file.delete(); // => boolean if deleted
+    }
+}
+```
+
+Read / Write to a file
+```java
+class Example {
+    public static void main(String[] args) {
+        // Read the lines from the file into a list
+        file.read(); // => List<String>
+        
+        // Write new lines to a file
+        file.write(value1, value2 /* ... */);
+        // Override a file complete
+        file.override(value1, value2 /* ... */);
+        // Change a specific string in the file
+        file.change(oldLine, newLine);
+        // Change a specific line in the file
+        file.changeLine(line, newLine);
     }
 }
 ```
@@ -50,8 +88,12 @@ Set and Save the defaults to a file
 class Example {
     public static void main(String[] args) {
         SomeDefaults defaults = new SomeDefaults<>();
-        // Add a Description
-        defaults.addDes("Description");
+        
+        // Add a Description (hashtag will be auto-added)
+        defaults.addDescription("Description");
+        // Add plain line without a hashtag
+        defaults.addPlain("# Custom Line");
+        
         // Add a String
         defaults.add("testString", "test");
         // Add a Integer
@@ -62,40 +104,11 @@ class Example {
         defaults.addList("ListExample",
                 new ArrayList<>(Arrays.asList("test1", "test2", "test3", true, 123))
         );
-        // Set the defaults finally
+        
+        // Set the defaults
         file.setDefaults(defaults);
-
+        // Creates the file with the defaults if it doesn't exist
         file.saveDefaults();
-    }
-}
-```
-
-Read / Write to a file
-```java
-class Example {
-    public static void main(String[] args) {
-        // Read the lines from the file
-        file.read(); // => List<String>
-        // Write new lines to a file
-        file.write(value1, value2 /*, ... */);
-        // Override a file complete
-        file.override(value1, value2 /*, ... */);
-        // Change a specific string in the file
-        file.change(oldLine, newLine);
-        // Change a specific line in the file
-        file.changeLine(line, newLine);
-    }
-}
-```
-
-Rename and Move a file
-```java
-class Example {
-    public static void main(String[] args) {
-        // Rename the File
-        file.rename("new.name");
-        // Move the File
-        file.move("new/path/");
     }
 }
 ```
@@ -120,7 +133,7 @@ class Example {
 
 ## Logger Usage/Examples
 
-[Full Example Class](https://github.com/SomeOverflow/SomeUtils/blob/master/src/test/java/LogExample.java)
+[Full Example Class](https://github.com/SomeOverflow/SomeUtils/blob/master/src/test/java/me/someoverflow/someutils/LogExample.java)
 
 Get a logger with:
  - Name
@@ -229,11 +242,11 @@ class Example {
 
 ## Support
 
-Feel free to use the Issues tab!
+Feel free to contribute and create issues!
 
 ## Badges
 
-[![Version](https://repo.someworkflow.de/api/badge/latest/releases/me/someoverflow/someutils?color=40c14a&name=SomeUtils&prefix=v)](https://repo.someworkflow.de/#/releases/me/someoverflow/someutils/1.1.4)
+[![Version](https://repo.someworkflow.de/api/badge/latest/releases/me/someoverflow/someutils?color=40c14a&name=SomeUtils&prefix=v)](https://repo.someworkflow.de/#/releases/me/someoverflow/someutils)
 
 ## License
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://raw.githubusercontent.com/SomeOverflow/SomeUtils/master/LICENSE)

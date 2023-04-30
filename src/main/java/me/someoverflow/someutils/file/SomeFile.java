@@ -14,22 +14,23 @@ public class SomeFile {
     private String filePath;
     private String fileName;
 
-    public boolean fileCreated;
+    public boolean dirCreated;
 
     private List<String> defaults;
 
     public SomeFile(@NotNull String filePath, @NotNull String fileName) {
         this.filePath = filePath;
         File directory = new File(filePath);
-        if (!directory.exists()) fileCreated = directory.mkdirs();
+        if (!directory.exists()) dirCreated = directory.mkdirs();
         this.fileName = fileName;
     }
 
-    public static final String DESCRIPTION = "#desc#";
+    public static final String DESCRIPTION_DEFAULT = "#desc#";
+    public static final String PLAIN_DEFAULT = "#plain#";
 
     /**
      * Set the defaults of the file
-     * {@link SomeFile#DESCRIPTION} will be a description in the config
+     * {@link SomeFile#DESCRIPTION_DEFAULT} will be a description in the config
      *
      * @param defaults A list of the defaults
      */
@@ -37,10 +38,15 @@ public class SomeFile {
         this.defaults = new ArrayList<>();
         for (int i = 0; i < defaults.getSize(); i++) {
             String value = defaults.getValue(i);
-            if (value.equals(DESCRIPTION)) {
+
+            String toAdd;
+
+            if (value.equals(DESCRIPTION_DEFAULT))
+                this.defaults.add("# " + defaults.getKey(i));
+            else if (value.equals(PLAIN_DEFAULT))
                 this.defaults.add(defaults.getKey(i));
-            } else {
-                String toAdd = defaults.getKey(i) + ": '" + value + "'";
+            else {
+                toAdd = defaults.getKey(i) + ": '" + value + "'";
                 this.defaults.add(toAdd);
             }
         }
@@ -52,10 +58,10 @@ public class SomeFile {
      * @throws IOException See {@link SomeFile#write(String...)}
      */
     public void saveDefaults() throws IOException {
-        if (!new File(filePath + fileName).exists()) {
-            for (String s : defaults)
-                write(s);
-        }
+        if (new File(filePath + fileName).exists())
+            return;
+        for (String s : defaults)
+            write(s);
     }
 
     /**
@@ -74,10 +80,10 @@ public class SomeFile {
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath + fileName));
         for (int i = 0; i < toAdd.size(); i++) {
-            if (i == (toAdd.size() - 1))
-                writer.write(toAdd.get(i));
-            else
-                writer.write(toAdd.get(i) + "\n");
+            writer.write(
+                    toAdd.get(i) +
+                    (i == (toAdd.size() - 1) ? "" : "\n")
+            );
         }
         writer.close();
     }
@@ -126,7 +132,7 @@ public class SomeFile {
      * @param values The Values to add
      * @throws IOException See {@link BufferedWriter} and {@link FileWriter}
      */
-    public void override(String... values) throws IOException {
+    public void override(String @NotNull ... values) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath + fileName));
         if (values.length != 1) {
             for (int i = 0; i < values.length; i++) {

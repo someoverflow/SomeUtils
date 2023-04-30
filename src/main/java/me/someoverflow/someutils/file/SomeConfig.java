@@ -1,7 +1,6 @@
 package me.someoverflow.someutils.file;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -15,6 +14,11 @@ import java.util.regex.Pattern;
 public class SomeConfig {
 
     private final SomeFile file;
+
+    /**
+     * Get access to the config things of a file
+     * @param file The file
+     */
     public SomeConfig(SomeFile file) {
         this.file = file;
     }

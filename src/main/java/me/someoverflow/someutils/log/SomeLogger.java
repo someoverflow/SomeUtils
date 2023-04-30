@@ -130,7 +130,7 @@ public class SomeLogger {
         if (toFile) {
             tFileManager = new SomeFile(filePath, fileName);
 
-            if (!tFileManager.fileCreated) {
+            if (!tFileManager.dirCreated) {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
                 try {
                     tFileManager.move(filePath + "logs/");
@@ -345,12 +345,39 @@ public class SomeLogger {
      * Every LogLevel with the "name"
      */
     public enum LogLevel {
-        ERROR("EROR"), WARNING("WARN"), INFO("INFO"), DEBUG("DBUG");
+        /**
+         * Only when something seriously bad has happened
+         */
+        ERROR("EROR"),
+        /**
+         * When something weird happened but it's not very bad
+         */
+        WARNING("WARN"),
+        /**
+         * Information
+         */
+        INFO("INFO"),
+        /**
+         * Information for developers
+         */
+        DEBUG("DBUG");
 
+        /**
+         * The 4 char name that is visible in the console
+         */
         private final String name;
+
+        /**
+         * Constructor of LogLevel
+         * @param name The name of the level
+         */
         LogLevel(String name) {
             this.name = name;
         }
+
+        /**
+         * @return The name
+         */
         public String getName() {
             return name;
         }

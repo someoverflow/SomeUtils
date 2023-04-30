@@ -1,63 +1,100 @@
 package me.someoverflow.someutils.file;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
 import java.util.List;
 
 /**
- * A list where the keys and values are in one line
+ * Useless but gud
  *
  * @author SomeOverflow
  */
 public class SomeDefaults {
 
-    private int size = 0;
+    private final HashMap<String, Object> content;
 
-    private final String[] keys;
-    private final String[] values;
-
+    /**
+     * List for config defaults
+     */
     public SomeDefaults() {
-        // I like the number 555 :)
-        int MAX_SIZE = 555;
-        keys = new String[MAX_SIZE];
-        values = new String[MAX_SIZE];
+        content = new HashMap<>();
     }
 
-    public SomeDefaults add(String key, Object value) {
-        keys[size] = key;
-        values[size] = value.toString();
-        size++;
-
-        return this;
-    }
-
-    public SomeDefaults addList(String name, List<Object> value) {
-        // Add the Name
-        addDes(name + " #{");
-        for (Object s : value)
-            addDes("\t- " + s.toString());
-        addDes("}");
-
+    /**
+     * Adds the key with the value to the list
+     *
+     * @param key The key
+     * @param value The value
+     * @return The current {@link SomeDefaults}
+     */
+    public SomeDefaults add(String key, @NotNull Object value) {
+        content.put(key, value);
         return this;
     }
 
     /**
      * Adds a Description
-     * Runs {@link SomeDefaults#add(String, Object)} with {@link SomeFile#DESCRIPTION}
+     * Runs {@link SomeDefaults#add(String, Object)} with {@link SomeFile#DESCRIPTION_DEFAULT}
      *
-     * @param key The Description
+     * @param description The Description
      * @return The current {@link SomeDefaults}
      */
-    public SomeDefaults addDes(String key) {
-        return add(key, SomeFile.DESCRIPTION);
+    public SomeDefaults addDescription(String description) {
+        return add(description, SomeFile.DESCRIPTION_DEFAULT);
     }
 
+    /**
+     * Adds a Plain Line
+     * Runs {@link SomeDefaults#add(String, Object)} with {@link SomeFile#PLAIN_DEFAULT}
+     *
+     * @param plain The Line
+     * @return The current {@link SomeDefaults}
+     */
+    public SomeDefaults addPlain(String plain) {
+        return add(plain, SomeFile.PLAIN_DEFAULT);
+    }
+
+    /**
+     * Creates / Adds a list with the content to the list
+     *
+     * @param name The name of the list
+     * @param value The value of the list
+     * @return The current {@link SomeDefaults}
+     */
+    public SomeDefaults addList(String name, @NotNull List<Object> value) {
+        // Add the Name
+        addPlain(name + " #{");
+        for (Object s : value)
+            addPlain("\t- " + s.toString());
+        addPlain("}");
+
+        return this;
+    }
+
+    /**
+     * Returns the key at the given index
+     * @param index The index of the key
+     * @return The key of the index
+     */
     public String getKey(int index) {
-        return keys[index];
-    }
-    public String getValue(int index) {
-        return values[index];
+        return content.keySet().toArray()[index].toString();
     }
 
+    /**
+     * Returns the value of a key at the given index
+     * @param index The index
+     * @return The value
+     */
+    public String getValue(int index) {
+        return content.values().toArray()[index].toString();
+    }
+
+    /**
+     * Returns the size of the list
+     * @return The size
+     */
     public int getSize() {
-        return size;
+        return content.size();
     }
 }

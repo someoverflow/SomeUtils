@@ -6,7 +6,6 @@ package me.someoverflow.someutils.log;
  */
 @SuppressWarnings("unused")
 public enum ConsoleColors {
-    // TODO: 09.02.2023 Test
 
     RESET ("\033[0m", "Text Reset"),
 
