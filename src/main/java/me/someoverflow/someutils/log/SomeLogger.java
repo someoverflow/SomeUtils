@@ -306,8 +306,8 @@ public class SomeLogger {
     /**
      * Doing this:
      * {@link SomeLogger#log(LogLevel, String)}
-     * with 'LogLevel.DEBUG'
-     * ( Logged only when {@link SomeLogger#isDebugging()} is on )
+     * with 'LogLevel.DEBUG'.
+     * Logged only when {@link SomeLogger#isDebugging()} is on
      * @param message The message that is to be output
      */
     public void debug(String message) {
