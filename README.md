@@ -2,8 +2,6 @@
 
 ### Just a simple library for Java
 
-Versions 1-7 have been removed due to a fatal bug
-
 It's _not_ recommended to use this lib! <br />
 It is still _bad_ and therefore _expandable_. <br />
 If you still use the lib, please write if there are problems under the issues tab!
